@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-menzaifu-dev-160121-authRole",
+      "UnauthRoleArn": "arn:aws:iam::095683578075:role/amplify-menzaifu-dev-160121-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::095683578075:role/amplify-menzaifu-dev-160121-authRole",
+      "Region": "ap-northeast-1",
+      "DeploymentBucketName": "amplify-menzaifu-dev-160121-deployment",
+      "UnauthRoleName": "amplify-menzaifu-dev-160121-unauthRole",
+      "StackName": "amplify-menzaifu-dev-160121",
+      "StackId": "arn:aws:cloudformation:ap-northeast-1:095683578075:stack/amplify-menzaifu-dev-160121/cfb91610-670e-11ed-b3e5-06578038add7",
+      "AmplifyAppId": "d9k2pl6w66t6j"
+    }
+  }
+}
