@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import "./App.css";
 import { Amplify } from "aws-amplify";
 import { Authenticator } from "@aws-amplify/ui-react";
@@ -11,8 +10,6 @@ function App(signOut, user) {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <h2>Hello React App with AWS</h2>
         <Authenticator>
           {({ signOut, user }) => (
             <main>
