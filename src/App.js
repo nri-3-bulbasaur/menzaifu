@@ -2,12 +2,12 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 // Amplify
-import { Amplify, API } from "aws-amplify";
-import { Authenticator, Button, Flex, Heading, Text, TextField, View, withAuthenticator } from "@aws-amplify/ui-react";
+import { Amplify } from "aws-amplify";
+import { Authenticator, Button, Flex, Heading, Text, TextField, View } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 import awsExports from "./aws-exports";
 // GraphQL Wrapper
-import { fetchTodos, createTodos, deleteTodos } from "./utils/fetchTodos";
+import { fetchTodosUtil, createTodoUtil, deleteTodoUtil } from "./utils/fetchTodos";
 
 Amplify.configure(awsExports);
 
@@ -16,11 +16,20 @@ function App(signOut, user) {
 
   useEffect(() => {
     (async () => {
-      console.log("useEffect");
-      const fetchRes = await fetchTodos();
+      const fetchRes = await fetchTodosUtil();
       setTodos(fetchRes);
     })();
   }, []);
+
+  const createTodo = async (event) => {
+    const newTodos = await createTodoUtil(event);
+    setTodos(newTodos);
+  };
+
+  const deleteTodo = async (todo) => {
+    const newTodos = await deleteTodoUtil(todo.id, todos);
+    setTodos(newTodos);
+  };
 
   return (
     <>
@@ -36,7 +45,7 @@ function App(signOut, user) {
                   as="form"
                   margin="3rem 0"
                   onSubmit={(e) => {
-                    createTodos(e, setTodos);
+                    createTodo(e);
                   }}
                 >
                   <Flex direction="row" justifyContent="center">
@@ -69,7 +78,7 @@ function App(signOut, user) {
                         {todo.name}
                       </Text>
                       <Text as="span">{todo.description}</Text>
-                      <Button variation="link" onClick={() => deleteTodos(todo)}>
+                      <Button variation="link" onClick={() => deleteTodo(todo)}>
                         Delete todo
                       </Button>
                     </Flex>

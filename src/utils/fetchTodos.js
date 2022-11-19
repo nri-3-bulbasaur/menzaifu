@@ -2,13 +2,13 @@ import { API } from "aws-amplify";
 import { listTodos } from "../graphql/queries";
 import { createTodo as createTodoMutation, deleteTodo as deleteTodoMutation } from "../graphql/mutations";
 
-const fetchTodos = async () => {
+const fetchTodosUtil = async () => {
   const apiData = await API.graphql({ query: listTodos });
   const todoFromAPI = apiData.data.listTodos.items;
   return todoFromAPI;
 };
 
-const createTodos = async (event, setState) => {
+const createTodoUtil = async (event) => {
   event.preventDefault();
   const form = new FormData(event.target);
   const data = {
@@ -19,18 +19,18 @@ const createTodos = async (event, setState) => {
     query: createTodoMutation,
     variables: { input: data },
   });
-  const fetchResult = await fetchTodos();
-  setState(fetchResult);
+  const newTodos = await fetchTodosUtil();
   event.target.reset();
+  return newTodos;
 };
 
-const deleteTodos = async ({ id }, state, setState) => {
+const deleteTodoUtil = async (id, state) => {
   const newTodos = state.filter((elem) => elem.id !== id);
   await API.graphql({
     query: deleteTodoMutation,
-    variables: { input: id },
+    variables: { input: { id } },
   });
-  setState(newTodos);
+  return newTodos;
 };
 
-export { fetchTodos, createTodos, deleteTodos };
+export { fetchTodosUtil, createTodoUtil, deleteTodoUtil };
