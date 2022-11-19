@@ -6,11 +6,8 @@ import { Amplify, API } from "aws-amplify";
 import { Authenticator, Button, Flex, Heading, Text, TextField, View, withAuthenticator } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 import awsExports from "./aws-exports";
-// AppSync
-import { listTodos } from "./graphql/queries";
-import { createTodo as createTodoMutation, deleteTodo as deleteTodoMutation } from "./graphql/mutations";
-// https://eslint.org/docs/latest/rules/no-restricted-globals
-// import event from "event-module";
+// GraphQL Wrapper
+import { fetchTodos, createTodos, deleteTodos } from "./utils/fetchTodos";
 
 Amplify.configure(awsExports);
 
@@ -18,41 +15,12 @@ function App(signOut, user) {
   const [todos, setTodos] = useState([]);
 
   useEffect(() => {
-    fetchTodos();
+    (async () => {
+      console.log("useEffect");
+      const fetchRes = await fetchTodos();
+      setTodos(fetchRes);
+    })();
   }, []);
-
-  /**
-   * APIクラスを使用し、GraphQL API にクエリを送信
-   */
-  async function fetchTodos() {
-    const apiData = await API.graphql({ query: listTodos });
-    const notesFromAPI = apiData.data.listTodos.items;
-    setTodos(notesFromAPI);
-  }
-
-  async function createTodos(event) {
-    event.preventDefault();
-    const form = new FormData(event.target);
-    const data = {
-      name: form.get("name"),
-      description: form.get("description"),
-    };
-    await API.graphql({
-      query: createTodoMutation,
-      variables: { input: data },
-    });
-    fetchTodos();
-    event.target.reset();
-  }
-
-  async function deleteTodo({ id }) {
-    const newNotes = todos.filter((note) => note.id !== id);
-    setTodos(newNotes);
-    await API.graphql({
-      query: deleteTodoMutation,
-      variables: { input: { id } },
-    });
-  }
 
   return (
     <>
@@ -68,7 +36,7 @@ function App(signOut, user) {
                   as="form"
                   margin="3rem 0"
                   onSubmit={(e) => {
-                    createTodos(e);
+                    createTodos(e, setTodos);
                   }}
                 >
                   <Flex direction="row" justifyContent="center">
@@ -95,14 +63,14 @@ function App(signOut, user) {
                 </View>
                 <Heading level={2}>Current Notes</Heading>
                 <View margin="3rem 0">
-                  {todos.map((note) => (
-                    <Flex key={note.id || note.name} direction="row" justifyContent="center" alignItems="center">
+                  {todos.map((todo) => (
+                    <Flex key={todo.id || todo.name} direction="row" justifyContent="center" alignItems="center">
                       <Text as="strong" fontWeight={700}>
-                        {note.name}
+                        {todo.name}
                       </Text>
-                      <Text as="span">{note.description}</Text>
-                      <Button variation="link" onClick={() => deleteTodo(note)}>
-                        Delete note
+                      <Text as="span">{todo.description}</Text>
+                      <Button variation="link" onClick={() => deleteTodos(todo)}>
+                        Delete todo
                       </Button>
                     </Flex>
                   ))}
