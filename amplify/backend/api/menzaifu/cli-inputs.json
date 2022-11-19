@@ -4,8 +4,20 @@
     "apiName": "menzaifu",
     "serviceName": "AppSync",
     "defaultAuthType": {
-      "mode": "API_KEY",
-      "expirationTime": 7
-    }
+      "mode": "AMAZON_COGNITO_USER_POOLS",
+      "cognitoUserPoolId": "authmenzaifub5292076"
+    },
+    "conflictResolution": {},
+    "additionalAuthTypes": [
+      {
+        "mode": "AWS_IAM"
+      },
+      {
+        "mode": "API_KEY",
+        "expirationTime": 365,
+        "apiKeyExpirationDate": "2023-11-19T13:18:57.199Z",
+        "keyDescription": "da2-ltqnbbv6kbapjoxinc7zkpfdzu"
+      }
+    ]
   }
 }

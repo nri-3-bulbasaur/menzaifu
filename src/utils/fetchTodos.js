@@ -1,3 +1,4 @@
+// https://docs.amplify.aws/lib/graphqlapi/getting-started/q/platform/js/#enable-queries-mutations-and-subscriptions
 import { API } from "aws-amplify";
 import { listTodos } from "../graphql/queries";
 import { createTodo as createTodoMutation, deleteTodo as deleteTodoMutation } from "../graphql/mutations";
@@ -8,10 +9,11 @@ const fetchTodosUtil = async () => {
   return todoFromAPI;
 };
 
-const createTodoUtil = async (event) => {
+const createTodoUtil = async (userName, event) => {
   event.preventDefault();
   const form = new FormData(event.target);
   const data = {
+    id: userName,
     name: form.get("name"),
     description: form.get("description"),
   };
