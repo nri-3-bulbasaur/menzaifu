@@ -1,38 +1,19 @@
 // React
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 // Amplify
 import { Amplify } from "aws-amplify";
-import { Authenticator, Button, Flex, Heading, Text, TextField, View } from "@aws-amplify/ui-react";
+import { Authenticator } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 import awsExports from "./aws-exports";
 
-// GraphQL Wrapper
-import { fetchTodosUtil, createTodoUtil, deleteTodoUtil } from "./utils/fetchTodos";
+// Components
 import UsersDemo from "./components/UsersDemo";
+import FoodTypesDemo from "./components/FoodTypesDemo";
 
 Amplify.configure(awsExports);
 
 function App(signOut, user) {
-  const [todos, setTodos] = useState([]);
-
-  useEffect(() => {
-    (async () => {
-      const fetchRes = await fetchTodosUtil();
-      setTodos(fetchRes);
-    })();
-  }, []);
-
-  const createTodo = async (userName, e) => {
-    const newTodos = await createTodoUtil(userName, e);
-    setTodos(newTodos);
-  };
-
-  const deleteTodo = async (todo) => {
-    const newTodos = await deleteTodoUtil(todo.id, todos);
-    setTodos(newTodos);
-  };
-
   return (
     <>
       <div className="App">
@@ -43,6 +24,7 @@ function App(signOut, user) {
                 <h1>Hello {user.username}</h1>
                 <button onClick={signOut}>Sign out</button>
                 <UsersDemo />
+                <FoodTypesDemo />
               </main>
             )}
           </Authenticator>

@@ -7,8 +7,8 @@ const UsersDemo = () => {
 
   useEffect(() => {
     (async () => {
-      const fetchRes = await listUsersUtil();
-      setUsers(fetchRes);
+      const usersList = await listUsersUtil();
+      setUsers(usersList);
     })();
   }, []);
 
@@ -26,15 +26,13 @@ const UsersDemo = () => {
     setUsers(newUsers);
   };
 
-  const deleteUser = async (user) => {
-    const newUsers = await deleteUsersUtil(user.id);
+  const updateUser = async (user) => {
+    const newUsers = await updateUsersUtil(user);
     setUsers(newUsers);
   };
 
-  const updateUser = async (user) => {
-    const now = new Date();
-    user.userId = "updated at " + now.toLocaleString();
-    const newUsers = await updateUsersUtil(user, users);
+  const deleteUser = async (user) => {
+    const newUsers = await deleteUsersUtil(user.id);
     setUsers(newUsers);
   };
 
@@ -72,6 +70,8 @@ const UsersDemo = () => {
               <TableCell as="th">weight</TableCell>
               <TableCell as="th">age</TableCell>
               <TableCell as="th">zaifuPoint</TableCell>
+              <TableCell as="th">createdAt</TableCell>
+              <TableCell as="th">updatedAt</TableCell>
               <TableCell as="th"></TableCell>
             </TableRow>
           </TableHead>
@@ -83,6 +83,8 @@ const UsersDemo = () => {
                 <TableCell key={user.weight + "weight"}>{user.weight}</TableCell>
                 <TableCell key={user.age + "age"}>{user.age}</TableCell>
                 <TableCell key={user.zaifuPoint + "zaifuPoint"}>{user.zaifuPoint}</TableCell>
+                <TableCell key={user.createdAt + "createdAt"}>{user.createdAt}</TableCell>
+                <TableCell key={user.updatedAt + "updatedAt"}>{user.updatedAt}</TableCell>
                 <TableCell key={user.id + "delete"}>
                   <Button key={user.id + "deleteButton"} onClick={() => deleteUser(user)}>
                     Delete
@@ -103,18 +105,22 @@ const UsersDemo = () => {
               <TableCell as="th">weight</TableCell>
               <TableCell as="th">age</TableCell>
               <TableCell as="th">zaifuPoint</TableCell>
+              <TableCell as="th">createdAt</TableCell>
+              <TableCell as="th">updatedAt</TableCell>
               <TableCell as="th"></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {users.map((user) => (
-              <TableRow key={user.id + "now"}>
-                <TableCell key={user.userId + "userIdNow"}>{user.userId}</TableCell>
-                <TableCell key={user.height + "heightNow"}>{user.height}</TableCell>
-                <TableCell key={user.weight + "weightNow"}>{user.weight}</TableCell>
-                <TableCell key={user.age + "ageNow"}>{user.age}</TableCell>
-                <TableCell key={user.zaifuPoint + "zaifuPointNow"}>{user.zaifuPoint}</TableCell>
-                <TableCell key={user.id + "delete"}>
+              <TableRow key={user.id + "update"}>
+                <TableCell key={user.userId + "userIdUpdate"}>{user.userId}</TableCell>
+                <TableCell key={user.height + "heightUpdate"}>{user.height}</TableCell>
+                <TableCell key={user.weight + "weightUpdate"}>{user.weight}</TableCell>
+                <TableCell key={user.age + "ageUpdate"}>{user.age}</TableCell>
+                <TableCell key={user.zaifuPoint + "zaifuPointUpdate"}>{user.zaifuPoint}</TableCell>
+                <TableCell key={user.createdAt + "createdAtUpdate"}>{user.createdAt}</TableCell>
+                <TableCell key={user.updatedAt + "updatedAtUpdate"}>{user.updatedAt}</TableCell>
+                <TableCell key={user.id + "update"}>
                   <Button key={user.id + "updateButton"} onClick={() => updateUser(user)}>
                     Update
                   </Button>

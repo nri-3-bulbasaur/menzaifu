@@ -42,14 +42,6 @@
           "additionalAuthenticationProviders": [
             {
               "authenticationType": "AWS_IAM"
-            },
-            {
-              "authenticationType": "API_KEY",
-              "apiKeyConfig": {
-                "description": "da2-ltqnbbv6kbapjoxinc7zkpfdzu",
-                "apiKeyExpirationDays": 365,
-                "apiKeyExpirationDate": "2023-11-19T13:18:57.199Z"
-              }
             }
           ]
         }

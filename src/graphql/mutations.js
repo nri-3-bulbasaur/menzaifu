@@ -10,6 +10,7 @@ export const createActivities = /* GraphQL */ `
       id
       activityId
       amount
+      userId
       createdAt
       updatedAt
     }
@@ -24,6 +25,7 @@ export const updateActivities = /* GraphQL */ `
       id
       activityId
       amount
+      userId
       createdAt
       updatedAt
     }
@@ -38,6 +40,7 @@ export const deleteActivities = /* GraphQL */ `
       id
       activityId
       amount
+      userId
       createdAt
       updatedAt
     }
