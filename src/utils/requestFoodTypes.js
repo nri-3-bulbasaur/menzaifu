@@ -5,11 +5,35 @@ import {
   updateFoodTypes as updateFoodTypesMutation,
   deleteFoodTypes as deleteFoodTypesMutation,
 } from "../graphql/mutations";
+import { Storage } from "aws-amplify";
+
+const getImageFromS3 = async (foodTypes) => {
+  const newFoodTypesPromise = await foodTypes.map(async (foodType) => {
+    try {
+      const s3Image = await Storage.get(foodType.image, { download: true });
+      const url = await URL.createObjectURL(s3Image.Body);
+      const newFoodType = { ...foodType };
+      newFoodType.url = url;
+      return newFoodType;
+    } catch (err) {
+      console.log(err);
+      const newFoodType = { ...foodType };
+      newFoodType.url = "not found";
+      return newFoodType;
+    }
+  });
+  const newFoodTypes = await Promise.all(newFoodTypesPromise).then((res) => {
+    return res.map((elem) => elem);
+  });
+  return newFoodTypes;
+};
 
 const listFoodTypesUtil = async () => {
   const apiData = await API.graphql({ query: listFoodTypes });
   const foodTypesFromAPI = apiData.data.listFoodTypes.items;
-  return foodTypesFromAPI;
+  const foodTypes = await getImageFromS3(foodTypesFromAPI);
+  console.log(foodTypes);
+  return foodTypes;
 };
 
 const createFoodTypesUtil = async ({ type, category, minZaifuPoint, image }) => {
@@ -30,6 +54,7 @@ const createFoodTypesUtil = async ({ type, category, minZaifuPoint, image }) => 
 const updateFoodTypesUtil = async (foodType) => {
   delete foodType.createdAt;
   delete foodType.updatedAt;
+  delete foodType.url;
   await API.graphql({
     query: updateFoodTypesMutation,
     variables: { input: foodType },
@@ -43,7 +68,7 @@ const deleteFoodTypesUtil = async (id) => {
     query: deleteFoodTypesMutation,
     variables: { input: { id } },
   });
-  const newFoodTypes = await listFoodTypes();
+  const newFoodTypes = await listFoodTypesUtil();
   return newFoodTypes;
 };
 

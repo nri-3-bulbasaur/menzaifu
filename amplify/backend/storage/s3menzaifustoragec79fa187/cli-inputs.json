@@ -1,0 +1,10 @@
+{
+  "resourceName": "s3menzaifustoragec79fa187",
+  "bucketName": "menzaifu-storage-c79fa187",
+  "policyUUID": "a797265a",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "READ"
+  ]
+}
