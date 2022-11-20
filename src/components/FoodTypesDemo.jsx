@@ -15,7 +15,7 @@ const FoodTypesDemo = () => {
       const foodTypesList = await listFoodTypesUtil();
       setFoodTypes(foodTypesList);
     })();
-  });
+  }, []);
 
   const createFoodTypes = async (event) => {
     event.preventDefault();
@@ -57,7 +57,7 @@ const FoodTypesDemo = () => {
             <TextField name="minZaifuPoint" placeholder="60" label="minZaifuPoint" variation="default" required />
             <TextField
               name="image"
-              placeholder="image/category/001_yakiniku.jpg"
+              placeholder="foodtypes/yakiniku_300_300.png"
               label="image"
               variation="default"
               required
@@ -80,6 +80,7 @@ const FoodTypesDemo = () => {
               <TableCell as="th">image</TableCell>
               <TableCell as="th">createdAt</TableCell>
               <TableCell as="th">updatedAt</TableCell>
+              <TableCell as="th">Image</TableCell>
               <TableCell as="th"></TableCell>
             </TableRow>
           </TableHead>
@@ -92,6 +93,9 @@ const FoodTypesDemo = () => {
                 <TableCell key={foodType.image + "image"}>{foodType.image}</TableCell>
                 <TableCell key={foodType.createdAt + "createdAt"}>{foodType.createdAt}</TableCell>
                 <TableCell key={foodType.updatedAt + "updatedAt"}>{foodType.updatedAt}</TableCell>
+                <TableCell key={foodType.url + "updateImage"}>
+                  <img src={foodType.url} alt="hoge" height="100px" />
+                </TableCell>
                 <TableCell key={foodType.id + "delete"}>
                   <Button key={foodType.id + "deleteButton"} onClick={() => deleteFoodTypes(foodType)}>
                     Delete
@@ -113,6 +117,7 @@ const FoodTypesDemo = () => {
               <TableCell as="th">image</TableCell>
               <TableCell as="th">createdAt</TableCell>
               <TableCell as="th">updatedAt</TableCell>
+              <TableCell as="th">Image</TableCell>
               <TableCell as="th"></TableCell>
             </TableRow>
           </TableHead>
@@ -125,6 +130,9 @@ const FoodTypesDemo = () => {
                 <TableCell key={foodType.image + "ageUpdate"}>{foodType.image}</TableCell>
                 <TableCell key={foodType.createdAt + "createdAtUpdate"}>{foodType.createdAt}</TableCell>
                 <TableCell key={foodType.updatedAt + "updatedAtUpdate"}>{foodType.updatedAt}</TableCell>
+                <TableCell key={foodType.url + "updateImage"}>
+                  <img src={foodType.url} alt="hoge" height="100px" />
+                </TableCell>
                 <TableCell key={foodType.id + "update"}>
                   <Button key={foodType.id + "updateButton"} onClick={() => updateFoodTypes(foodType)}>
                     Update

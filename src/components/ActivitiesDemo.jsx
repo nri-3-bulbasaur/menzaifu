@@ -15,7 +15,7 @@ const ActivitiesDemo = () => {
       const activitiesList = await listActivitiesUtil();
       setActivities(activitiesList);
     })();
-  });
+  }, []);
 
   const createActivity = async (event) => {
     event.preventDefault();
