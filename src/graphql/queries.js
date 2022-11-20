@@ -7,6 +7,7 @@ export const getActivities = /* GraphQL */ `
       id
       activityId
       amount
+      userId
       createdAt
       updatedAt
     }
@@ -23,6 +24,7 @@ export const listActivities = /* GraphQL */ `
         id
         activityId
         amount
+        userId
         createdAt
         updatedAt
       }
