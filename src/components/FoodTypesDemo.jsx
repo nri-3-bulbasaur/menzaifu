@@ -31,7 +31,6 @@ const FoodTypesDemo = () => {
   };
 
   const updateFoodTypes = async (foodType) => {
-    foodType.minZaifuPoint = 0;
     const newFoodTypes = await updateFoodTypesUtil(foodType);
     setFoodTypes(newFoodTypes);
   };

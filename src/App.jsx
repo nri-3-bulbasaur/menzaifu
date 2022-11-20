@@ -10,6 +10,7 @@ import awsExports from "./aws-exports";
 // Components
 import UsersDemo from "./components/UsersDemo";
 import FoodTypesDemo from "./components/FoodTypesDemo";
+import ActivitiesDemo from "./components/ActivitiesDemo";
 
 Amplify.configure(awsExports);
 
@@ -25,6 +26,7 @@ function App(signOut, user) {
                 <button onClick={signOut}>Sign out</button>
                 <UsersDemo />
                 <FoodTypesDemo />
+                <ActivitiesDemo />
               </main>
             )}
           </Authenticator>
