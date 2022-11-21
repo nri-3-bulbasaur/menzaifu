@@ -1,11 +1,21 @@
-import React, { useState, useEffect } from "react";
-import { View, Flex, TextField, Button, Table, TableHead, TableRow, TableBody, TableCell } from "@aws-amplify/ui-react";
+import React, { useState, useEffect } from 'react';
+import {
+  View,
+  Flex,
+  TextField,
+  Button,
+  Table,
+  TableHead,
+  TableRow,
+  TableBody,
+  TableCell,
+} from '@aws-amplify/ui-react';
 import {
   listFoodTypesUtil,
   createFoodTypesUtil,
   updateFoodTypesUtil,
   deleteFoodTypesUtil,
-} from "../utils/requestFoodTypes";
+} from '../utils/requestFoodTypes';
 
 const FoodTypesDemo = () => {
   const [foodTypes, setFoodTypes] = useState([]);
@@ -21,10 +31,10 @@ const FoodTypesDemo = () => {
     event.preventDefault();
     const form = new FormData(event.target);
     const data = {
-      type: form.get("type"),
-      category: form.get("category"),
-      minZaifuPoint: form.get("minZaifuPoint"),
-      image: form.get("image"),
+      type: form.get('type'),
+      category: form.get('category'),
+      minZaifuPoint: form.get('minZaifuPoint'),
+      image: form.get('image'),
     };
     const newFoodTypes = await createFoodTypesUtil(data);
     setFoodTypes(newFoodTypes);
@@ -52,9 +62,27 @@ const FoodTypesDemo = () => {
           }}
         >
           <Flex direction="column" alignItems="left">
-            <TextField name="type" placeholder="がっつり" label="type" variation="default" required />
-            <TextField name="category" placeholder="焼肉" label="category" variation="default" required />
-            <TextField name="minZaifuPoint" placeholder="60" label="minZaifuPoint" variation="default" required />
+            <TextField
+              name="type"
+              placeholder="がっつり"
+              label="type"
+              variation="default"
+              required
+            />
+            <TextField
+              name="category"
+              placeholder="焼肉"
+              label="category"
+              variation="default"
+              required
+            />
+            <TextField
+              name="minZaifuPoint"
+              placeholder="60"
+              label="minZaifuPoint"
+              variation="default"
+              required
+            />
             <TextField
               name="image"
               placeholder="foodtypes/yakiniku_300_300.png"
@@ -87,17 +115,32 @@ const FoodTypesDemo = () => {
           <TableBody>
             {foodTypes.map((foodType) => (
               <TableRow key={foodType.id}>
-                <TableCell key={foodType.type + "type"}>{foodType.type}</TableCell>
-                <TableCell key={foodType.category + "category"}>{foodType.category}</TableCell>
-                <TableCell key={foodType.minZaifuPoint + "minZaifuPoint"}>{foodType.minZaifuPoint}</TableCell>
-                <TableCell key={foodType.image + "image"}>{foodType.image}</TableCell>
-                <TableCell key={foodType.createdAt + "createdAt"}>{foodType.createdAt}</TableCell>
-                <TableCell key={foodType.updatedAt + "updatedAt"}>{foodType.updatedAt}</TableCell>
-                <TableCell key={foodType.url + "updateImage"}>
+                <TableCell key={foodType.type + 'type'}>
+                  {foodType.type}
+                </TableCell>
+                <TableCell key={foodType.category + 'category'}>
+                  {foodType.category}
+                </TableCell>
+                <TableCell key={foodType.minZaifuPoint + 'minZaifuPoint'}>
+                  {foodType.minZaifuPoint}
+                </TableCell>
+                <TableCell key={foodType.image + 'image'}>
+                  {foodType.image}
+                </TableCell>
+                <TableCell key={foodType.createdAt + 'createdAt'}>
+                  {foodType.createdAt}
+                </TableCell>
+                <TableCell key={foodType.updatedAt + 'updatedAt'}>
+                  {foodType.updatedAt}
+                </TableCell>
+                <TableCell key={foodType.url + 'updateImage'}>
                   <img src={foodType.url} alt="hoge" height="100px" />
                 </TableCell>
-                <TableCell key={foodType.id + "delete"}>
-                  <Button key={foodType.id + "deleteButton"} onClick={() => deleteFoodTypes(foodType)}>
+                <TableCell key={foodType.id + 'delete'}>
+                  <Button
+                    key={foodType.id + 'deleteButton'}
+                    onClick={() => deleteFoodTypes(foodType)}
+                  >
                     Delete
                   </Button>
                 </TableCell>
@@ -123,18 +166,33 @@ const FoodTypesDemo = () => {
           </TableHead>
           <TableBody>
             {foodTypes.map((foodType) => (
-              <TableRow key={foodType.id + "update"}>
-                <TableCell key={foodType.type + "userIdUpdate"}>{foodType.type}</TableCell>
-                <TableCell key={foodType.category + "heightUpdate"}>{foodType.category}</TableCell>
-                <TableCell key={foodType.minZaifuPoint + "weightUpdate"}>{foodType.minZaifuPoint}</TableCell>
-                <TableCell key={foodType.image + "ageUpdate"}>{foodType.image}</TableCell>
-                <TableCell key={foodType.createdAt + "createdAtUpdate"}>{foodType.createdAt}</TableCell>
-                <TableCell key={foodType.updatedAt + "updatedAtUpdate"}>{foodType.updatedAt}</TableCell>
-                <TableCell key={foodType.url + "updateImage"}>
+              <TableRow key={foodType.id + 'update'}>
+                <TableCell key={foodType.type + 'userIdUpdate'}>
+                  {foodType.type}
+                </TableCell>
+                <TableCell key={foodType.category + 'heightUpdate'}>
+                  {foodType.category}
+                </TableCell>
+                <TableCell key={foodType.minZaifuPoint + 'weightUpdate'}>
+                  {foodType.minZaifuPoint}
+                </TableCell>
+                <TableCell key={foodType.image + 'ageUpdate'}>
+                  {foodType.image}
+                </TableCell>
+                <TableCell key={foodType.createdAt + 'createdAtUpdate'}>
+                  {foodType.createdAt}
+                </TableCell>
+                <TableCell key={foodType.updatedAt + 'updatedAtUpdate'}>
+                  {foodType.updatedAt}
+                </TableCell>
+                <TableCell key={foodType.url + 'updateImage'}>
                   <img src={foodType.url} alt="hoge" height="100px" />
                 </TableCell>
-                <TableCell key={foodType.id + "update"}>
-                  <Button key={foodType.id + "updateButton"} onClick={() => updateFoodTypes(foodType)}>
+                <TableCell key={foodType.id + 'update'}>
+                  <Button
+                    key={foodType.id + 'updateButton'}
+                    onClick={() => updateFoodTypes(foodType)}
+                  >
                     Update
                   </Button>
                 </TableCell>

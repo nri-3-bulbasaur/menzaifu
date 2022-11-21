@@ -1,10 +1,10 @@
-import { API } from "aws-amplify";
-import { listActivities } from "../graphql/queries";
+import { API } from 'aws-amplify';
+import { listActivities } from '../graphql/queries';
 import {
   createActivities as createActivitiesMutation,
   updateActivities as updateActivitiesMutation,
   deleteActivities as deleteActivitiesMutation,
-} from "../graphql/mutations";
+} from '../graphql/mutations';
 
 const listActivitiesUtil = async () => {
   const apiData = await API.graphql({ query: listActivities });
@@ -46,4 +46,9 @@ const deleteActivitiesUtil = async (id) => {
   return newActivities;
 };
 
-export { listActivitiesUtil, createActivitiesUtil, updateActivitiesUtil, deleteActivitiesUtil };
+export {
+  listActivitiesUtil,
+  createActivitiesUtil,
+  updateActivitiesUtil,
+  deleteActivitiesUtil,
+};
