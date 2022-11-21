@@ -17,6 +17,9 @@
       },
       "api": {
         "menzaifu": {}
+      },
+      "storage": {
+        "s3menzaifustoragec79fa187": {}
       }
     }
   },
