@@ -14,7 +14,7 @@ const IconsDemo = () => {
   return (
     <>
       <DiAndroid />
-      <BsSearch />
+      <BsSearch size={100} color={'#C31789'} />
       <Icon
         ariaLabel="Favorite"
         viewBox={{ width: 24, height: 24 }}
