@@ -1,10 +1,10 @@
-import { API } from "aws-amplify";
-import { listUsers } from "../graphql/queries";
+import { API } from 'aws-amplify';
+import { listUsers } from '../graphql/queries';
 import {
   createUsers as createUsersMutation,
   updateUsers as updateUsersMutation,
   deleteUsers as deleteUsersMutation,
-} from "../graphql/mutations";
+} from '../graphql/mutations';
 
 const listUsersUtil = async () => {
   const apiData = await API.graphql({ query: listUsers });

@@ -1,20 +1,21 @@
 // React
-import React from "react";
+import React from 'react';
 
 // Amplify
-import { Amplify } from "aws-amplify";
-import { Authenticator } from "@aws-amplify/ui-react";
-import "@aws-amplify/ui-react/styles.css";
-import awsExports from "./aws-exports";
+import { Amplify } from 'aws-amplify';
+import { Authenticator } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+import awsExports from './aws-exports';
 
 // Components
-import UsersDemo from "./components/UsersDemo";
-import FoodTypesDemo from "./components/FoodTypesDemo";
-import ActivitiesDemo from "./components/ActivitiesDemo";
+import UsersDemo from './components/UsersDemo';
+import FoodTypesDemo from './components/FoodTypesDemo';
+import ActivitiesDemo from './components/ActivitiesDemo';
 
 Amplify.configure(awsExports);
 
-function App(signOut, user) {
+// lint err function App(signOut, user) {
+function App() {
   return (
     <>
       <div className="App">

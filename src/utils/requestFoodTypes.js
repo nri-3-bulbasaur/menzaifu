@@ -1,11 +1,11 @@
-import { API } from "aws-amplify";
-import { listFoodTypes } from "../graphql/queries";
+import { API } from 'aws-amplify';
+import { listFoodTypes } from '../graphql/queries';
 import {
   createFoodTypes as createFoodTypesMutation,
   updateFoodTypes as updateFoodTypesMutation,
   deleteFoodTypes as deleteFoodTypesMutation,
-} from "../graphql/mutations";
-import { Storage } from "aws-amplify";
+} from '../graphql/mutations';
+import { Storage } from 'aws-amplify';
 
 const getImageFromS3 = async (foodTypes) => {
   const newFoodTypesPromise = await foodTypes.map(async (foodType) => {
@@ -18,7 +18,7 @@ const getImageFromS3 = async (foodTypes) => {
     } catch (err) {
       console.log(err);
       const newFoodType = { ...foodType };
-      newFoodType.url = "not found";
+      newFoodType.url = 'not found';
       return newFoodType;
     }
   });
@@ -36,7 +36,12 @@ const listFoodTypesUtil = async () => {
   return foodTypes;
 };
 
-const createFoodTypesUtil = async ({ type, category, minZaifuPoint, image }) => {
+const createFoodTypesUtil = async ({
+  type,
+  category,
+  minZaifuPoint,
+  image,
+}) => {
   const data = {
     type: type,
     category: category,
@@ -72,4 +77,9 @@ const deleteFoodTypesUtil = async (id) => {
   return newFoodTypes;
 };
 
-export { listFoodTypesUtil, createFoodTypesUtil, updateFoodTypesUtil, deleteFoodTypesUtil };
+export {
+  listFoodTypesUtil,
+  createFoodTypesUtil,
+  updateFoodTypesUtil,
+  deleteFoodTypesUtil,
+};

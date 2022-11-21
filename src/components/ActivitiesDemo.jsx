@@ -1,11 +1,21 @@
-import React, { useState, useEffect } from "react";
-import { View, Flex, TextField, Button, Table, TableHead, TableRow, TableBody, TableCell } from "@aws-amplify/ui-react";
+import React, { useState, useEffect } from 'react';
+import {
+  View,
+  Flex,
+  TextField,
+  Button,
+  Table,
+  TableHead,
+  TableRow,
+  TableBody,
+  TableCell,
+} from '@aws-amplify/ui-react';
 import {
   listActivitiesUtil,
   createActivitiesUtil,
   updateActivitiesUtil,
   deleteActivitiesUtil,
-} from "../utils/requestActivities";
+} from '../utils/requestActivities';
 
 const ActivitiesDemo = () => {
   const [activities, setActivities] = useState([]);
@@ -21,9 +31,9 @@ const ActivitiesDemo = () => {
     event.preventDefault();
     const form = new FormData(event.target);
     const data = {
-      userId: form.get("userId"),
-      activityId: form.get("activityId"),
-      amount: form.get("amount"),
+      userId: form.get('userId'),
+      activityId: form.get('activityId'),
+      amount: form.get('amount'),
     };
     const newActivities = await createActivitiesUtil(data);
     setActivities(newActivities);
@@ -51,9 +61,27 @@ const ActivitiesDemo = () => {
           }}
         >
           <Flex direction="column" alignItems="left">
-            <TextField name="userId" placeholder="XXXXX" label="userId" variation="default" required />
-            <TextField name="activityId" placeholder="walk" label="activityId" variation="default" required />
-            <TextField name="amount" placeholder="60" label="amount" variation="default" required />
+            <TextField
+              name="userId"
+              placeholder="XXXXX"
+              label="userId"
+              variation="default"
+              required
+            />
+            <TextField
+              name="activityId"
+              placeholder="walk"
+              label="activityId"
+              variation="default"
+              required
+            />
+            <TextField
+              name="amount"
+              placeholder="60"
+              label="amount"
+              variation="default"
+              required
+            />
           </Flex>
           <br />
           <Button type="submit" variation="primary">
@@ -77,13 +105,26 @@ const ActivitiesDemo = () => {
           <TableBody>
             {activities.map((activity) => (
               <TableRow key={activity.id}>
-                <TableCell key={activity.userId + "userId"}>{activity.userId}</TableCell>
-                <TableCell key={activity.activityId + "activityId"}>{activity.activityId}</TableCell>
-                <TableCell key={activity.amount + "amount"}>{activity.amount}</TableCell>
-                <TableCell key={activity.createdAt + "createdAt"}>{activity.createdAt}</TableCell>
-                <TableCell key={activity.updatedAt + "updatedAt"}>{activity.updatedAt}</TableCell>
-                <TableCell key={activity.id + "delete"}>
-                  <Button key={activity.id + "deleteButton"} onClick={() => deleteActivity(activity)}>
+                <TableCell key={activity.userId + 'userId'}>
+                  {activity.userId}
+                </TableCell>
+                <TableCell key={activity.activityId + 'activityId'}>
+                  {activity.activityId}
+                </TableCell>
+                <TableCell key={activity.amount + 'amount'}>
+                  {activity.amount}
+                </TableCell>
+                <TableCell key={activity.createdAt + 'createdAt'}>
+                  {activity.createdAt}
+                </TableCell>
+                <TableCell key={activity.updatedAt + 'updatedAt'}>
+                  {activity.updatedAt}
+                </TableCell>
+                <TableCell key={activity.id + 'delete'}>
+                  <Button
+                    key={activity.id + 'deleteButton'}
+                    onClick={() => deleteActivity(activity)}
+                  >
                     Delete
                   </Button>
                 </TableCell>
@@ -107,14 +148,27 @@ const ActivitiesDemo = () => {
           </TableHead>
           <TableBody>
             {activities.map((activity) => (
-              <TableRow key={activity.id + "update"}>
-                <TableCell key={activity.userId + "userIdUpdate"}>{activity.userId}</TableCell>
-                <TableCell key={activity.activityId + "activityIdUpdate"}>{activity.activityId}</TableCell>
-                <TableCell key={activity.amount + "amountUpdate"}>{activity.amount}</TableCell>
-                <TableCell key={activity.createdAt + "createdAtUpdate"}>{activity.createdAt}</TableCell>
-                <TableCell key={activity.updatedAt + "updatedAtUpdate"}>{activity.updatedAt}</TableCell>
-                <TableCell key={activity.id + "update"}>
-                  <Button key={activity.id + "updateButton"} onClick={() => updateActivity(activity)}>
+              <TableRow key={activity.id + 'update'}>
+                <TableCell key={activity.userId + 'userIdUpdate'}>
+                  {activity.userId}
+                </TableCell>
+                <TableCell key={activity.activityId + 'activityIdUpdate'}>
+                  {activity.activityId}
+                </TableCell>
+                <TableCell key={activity.amount + 'amountUpdate'}>
+                  {activity.amount}
+                </TableCell>
+                <TableCell key={activity.createdAt + 'createdAtUpdate'}>
+                  {activity.createdAt}
+                </TableCell>
+                <TableCell key={activity.updatedAt + 'updatedAtUpdate'}>
+                  {activity.updatedAt}
+                </TableCell>
+                <TableCell key={activity.id + 'update'}>
+                  <Button
+                    key={activity.id + 'updateButton'}
+                    onClick={() => updateActivity(activity)}
+                  >
                     Update
                   </Button>
                 </TableCell>
