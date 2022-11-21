@@ -1,6 +1,5 @@
 // React
 import React from 'react';
-// import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Routes, Route, Link } from 'react-router-dom';
 
 // Amplify
@@ -14,6 +13,7 @@ import { Button } from '@aws-amplify/ui-react';
 import UsersDemo from './components/UsersDemo';
 import FoodTypesDemo from './components/FoodTypesDemo';
 import ActivitiesDemo from './components/ActivitiesDemo';
+import IconsDemo from './components/IconsDemo';
 
 Amplify.configure(awsExports);
 
@@ -35,6 +35,9 @@ function App() {
               <Link to="/foodtypes">
                 <Button variation="primary">FoodTypes</Button>
               </Link>
+              <Link to="/icons">
+                <Button variation="primary">Icons</Button>
+              </Link>
             </main>
           )}
         </Authenticator>
@@ -44,6 +47,7 @@ function App() {
         <Route path={`/users`} element={<UsersDemo />} />
         <Route path={`/activities`} element={<ActivitiesDemo />} />
         <Route path={`/foodtypes`} element={<FoodTypesDemo />} />
+        <Route path={`/icons`} element={<IconsDemo />} />
       </Routes>
     </>
   );
