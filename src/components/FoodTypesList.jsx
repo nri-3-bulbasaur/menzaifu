@@ -22,6 +22,7 @@ export default function FoodTypesList({ userId }) {
   const [user, setUser] = useState({});
   const [foodTypes, setFoodTypes] = useState([]);
   const [showConsumeModalFlag, setShowConsumeModalFlag] = useState(false);
+  const [showErrorModalFlag, setShowErrorModalFlag] = useState(false);
   const [modalFoodType, setModalFoodType] = useState({});
   const { windowWidth } = getWindowSize();
   const stringLimit = windowWidth / 80 > 6 ? windowWidth / 80 : 6; // 計算が面倒になってきたので、とりあえず…
@@ -30,16 +31,31 @@ export default function FoodTypesList({ userId }) {
     (async () => {
       const foodTypesList = await listFoodTypesUtil();
       setFoodTypes(foodTypesList);
-      console.log('userId:' + userId);
       const loginUser = await getUser(userId);
       setUser(loginUser);
     })();
   }, []);
 
+  const updateDbInfo = async () => {
+    const loginUser = await getUser(userId);
+    setUser(loginUser);
+    const foodTypesList = await listFoodTypesUtil();
+    setFoodTypes(foodTypesList);
+
+    return { loginUser, foodTypesList };
+  };
+
   const consumePoint = async () => {
-    const updateUser = { ...user };
-    updateUser.zaifuPoint -= modalFoodType.minZaifuPoint;
-    updateUsersUtil(updateUser);
+    const { loginUser: loginUser } = await updateDbInfo();
+    if (loginUser.zaifuPoint < modalFoodType.minZaifuPoint) {
+      setShowConsumeModalFlag(false);
+      setShowErrorModalFlag(true);
+    } else {
+      const updateUser = { ...loginUser };
+      updateUser.zaifuPoint -= modalFoodType.minZaifuPoint;
+      updateUsersUtil(updateUser);
+    }
+    await updateDbInfo();
   };
 
   const customStyles = {
@@ -100,6 +116,27 @@ export default function FoodTypesList({ userId }) {
   return (
     <>
       <Heading level={1}>罪なき飲食店</Heading>
+      <Modal
+        isOpen={showErrorModalFlag}
+        ariaHideApp={false}
+        onRequestClose={() => {
+          setShowErrorModalFlag(false);
+        }}
+        style={customStyles}
+        contentLabel="エラー表示"
+      >
+        <Heading level={2}>エラー</Heading>
+        <Text>ポイントが足りません…</Text>
+        <Button
+          loadingText=""
+          onClick={() => {
+            setShowErrorModalFlag(false);
+          }}
+          ariaLabel=""
+        >
+          OK
+        </Button>
+      </Modal>
       <Modal
         isOpen={showConsumeModalFlag}
         ariaHideApp={false}
