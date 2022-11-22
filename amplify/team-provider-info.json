@@ -20,6 +20,12 @@
       },
       "storage": {
         "s3menzaifustoragec79fa187": {}
+      },
+      "function": {
+        "adduser": {
+          "deploymentBucketName": "amplify-amplify7f7b4a77bd664-staging-65957-deployment",
+          "s3Key": "amplify-builds/adduser-54793742556842497054-build.zip"
+        }
       }
     }
   },
