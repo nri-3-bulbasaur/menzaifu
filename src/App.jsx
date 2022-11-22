@@ -14,6 +14,7 @@ import UsersDemo from './components/UsersDemo';
 import FoodTypesDemo from './components/FoodTypesDemo';
 import ActivitiesDemo from './components/ActivitiesDemo';
 import IconsDemo from './components/IconsDemo';
+import ModalDemo from './components/ModalDemo';
 
 Amplify.configure(awsExports);
 
@@ -38,6 +39,9 @@ function App() {
               <Link to="/icons">
                 <Button variation="primary">Icons</Button>
               </Link>
+              <Link to="/modal">
+                <Button variation="primary">Modal</Button>
+              </Link>
             </main>
           )}
         </Authenticator>
@@ -48,6 +52,7 @@ function App() {
         <Route path={`/activities`} element={<ActivitiesDemo />} />
         <Route path={`/foodtypes`} element={<FoodTypesDemo />} />
         <Route path={`/icons`} element={<IconsDemo />} />
+        <Route path={`/modal`} element={<ModalDemo />} />
       </Routes>
     </>
   );
