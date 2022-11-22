@@ -8,15 +8,21 @@ import {
   Image,
   Badge,
   Text,
+  Button,
 } from '@aws-amplify/ui-react';
 
 import '../assets/styles.css';
 import { reactCardTheme, badgeClassNameList } from './Common';
 import { listFoodTypesUtil } from '../utils/requestFoodTypes';
+import { getUser, updateUsersUtil } from '../utils/requestUsers';
 import getWindowSize from '../utils/getWindowSize';
+import Modal from 'react-modal';
 
 export default function FoodTypesList() {
+  const [user, setUser] = useState({});
   const [foodTypes, setFoodTypes] = useState([]);
+  const [showConsumeModalFlag, setShowConsumeModalFlag] = useState(false);
+  const [modalFoodType, setModalFoodType] = useState({});
   const { windowWidth } = getWindowSize();
   const stringLimit = windowWidth / 80 > 6 ? windowWidth / 80 : 6; // 計算が面倒になってきたので、とりあえず…
 
@@ -24,15 +30,40 @@ export default function FoodTypesList() {
     (async () => {
       const foodTypesList = await listFoodTypesUtil();
       setFoodTypes(foodTypesList);
+      const loginUser = await getUser('102'); // 暫定！
+      setUser(loginUser);
     })();
   }, []);
+
+  const consumePoint = async () => {
+    const updateUser = { ...user };
+    updateUser.zaifuPoint -= modalFoodType.minZaifuPoint;
+    updateUsersUtil(updateUser);
+  };
+
+  const customStyles = {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+    },
+  };
 
   const foodTypesElm = foodTypes.map((foodType) => {
     if (foodType.minZaifuPoint > 0) {
       return (
-        <Card key={foodType.id}>
+        <Card
+          key={foodType.id}
+          onClick={() => {
+            setModalFoodType(foodType);
+            setShowConsumeModalFlag(true);
+          }}
+        >
           <Flex alignItems="flex-start">
-            <Image src={foodType.url} alt="hoge" maxWidth="25vw" />
+            <Image src={foodType.url} alt={foodType.category} maxWidth="25vw" />
             <Flex direction="column" gap="xxxs">
               <Flex>
                 <Badge
@@ -68,6 +99,37 @@ export default function FoodTypesList() {
   return (
     <>
       <Heading level={1}>罪なき飲食店</Heading>
+      <Modal
+        isOpen={showConsumeModalFlag}
+        ariaHideApp={false}
+        onRequestClose={() => {
+          setShowConsumeModalFlag(false);
+        }}
+        style={customStyles}
+        contentLabel="ポイント消費確認"
+      >
+        <Heading level={2}>{modalFoodType.category}</Heading>
+        <Text>{modalFoodType.minZaifuPoint} ptを使って食べますか？</Text>
+        <Button
+          loadingText=""
+          onClick={() => {
+            setShowConsumeModalFlag(false);
+          }}
+          ariaLabel=""
+        >
+          やめとく
+        </Button>
+        <Button
+          loadingText=""
+          onClick={() => {
+            consumePoint();
+            setShowConsumeModalFlag(false);
+          }}
+          ariaLabel=""
+        >
+          たべる
+        </Button>
+      </Modal>
       <ThemeProvider theme={reactCardTheme}>{foodTypesElm}</ThemeProvider>
     </>
   );

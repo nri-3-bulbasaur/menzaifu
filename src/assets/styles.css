@@ -16,6 +16,13 @@ body {
   color: #ad002d;
 }
 
+.amplify-heading--2 {
+  font-size: 1.25 rem;
+  margin: 1vh 2vw;
+  text-align: center;
+  color: #00039d;
+}
+
 .type-text {
   font-size: 0.5rem;
   padding: 0.3rem;
