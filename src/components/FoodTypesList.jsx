@@ -66,9 +66,9 @@ export default function FoodTypesList() {
   });
 
   return (
-    <>
+    <div className="foodtypes-wrapper">
       <Heading level={1}>罪なき飲食店</Heading>
       <ThemeProvider theme={reactCardTheme}>{foodTypesElm}</ThemeProvider>
-    </>
+    </div>
   );
 }
