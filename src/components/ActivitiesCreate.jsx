@@ -140,22 +140,14 @@ const ActivitiesCreate = (props) => {
               variation="default"
               required
             />
-          </Flex>
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <Button id="button"
-                  type="submit" 
-                  variation="primary"
-                  isFullWidth={true}
+            <Button id="button"
+              type="submit" 
+              variation="primary"
+              isFullWidth={true}
                   >
             保存
           </Button>
+          </Flex>
         </View>
       </div>
     </>
