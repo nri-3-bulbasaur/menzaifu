@@ -8,6 +8,7 @@ import '@aws-amplify/ui-react/styles.css';
 import awsExports from './aws-exports';
 
 // Components
+import FoodTypesList from './components/FoodTypesList';
 import UsersDemo from './components/UsersDemo';
 import FoodTypesDemo from './components/FoodTypesDemo';
 import ActivitiesDemo from './components/ActivitiesDemo';
@@ -25,6 +26,7 @@ function App() {
               <main>
                 <h1>Hello {user.username}</h1>
                 <button onClick={signOut}>Sign out</button>
+                <FoodTypesList />
                 <UsersDemo />
                 <FoodTypesDemo />
                 <ActivitiesDemo />
