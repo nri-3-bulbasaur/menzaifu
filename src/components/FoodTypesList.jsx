@@ -30,7 +30,7 @@ export default function FoodTypesList() {
     (async () => {
       const foodTypesList = await listFoodTypesUtil();
       setFoodTypes(foodTypesList);
-      const loginUser = await getUser('102'); // 暫定！
+      const loginUser = await getUser('104'); // 暫定！
       setUser(loginUser);
     })();
   }, []);
@@ -53,7 +53,7 @@ export default function FoodTypesList() {
   };
 
   const foodTypesElm = foodTypes.map((foodType) => {
-    if (foodType.minZaifuPoint > 0) {
+    if (user.zaifuPoint >= foodType.minZaifuPoint) {
       return (
         <Card
           key={foodType.id}
