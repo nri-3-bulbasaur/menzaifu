@@ -1,10 +1,19 @@
 import { API } from 'aws-amplify';
-import { listUsers } from '../graphql/queries';
+import { getUsers, listUsers } from '../graphql/queries';
 import {
   createUsers as createUsersMutation,
   updateUsers as updateUsersMutation,
   deleteUsers as deleteUsersMutation,
 } from '../graphql/mutations';
+
+const getUser = async (id) => {
+  const apiData = await API.graphql({
+    query: getUsers,
+    variables: { id: id },
+  });
+  const usersFromAPI = apiData.data.getUsers;
+  return usersFromAPI;
+};
 
 const listUsersUtil = async () => {
   const apiData = await API.graphql({ query: listUsers });
@@ -48,4 +57,10 @@ const deleteUsersUtil = async (id) => {
   return newUsers;
 };
 
-export { listUsersUtil, createUsersUtil, updateUsersUtil, deleteUsersUtil };
+export {
+  getUser,
+  listUsersUtil,
+  createUsersUtil,
+  updateUsersUtil,
+  deleteUsersUtil,
+};

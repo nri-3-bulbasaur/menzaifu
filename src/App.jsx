@@ -26,8 +26,8 @@ function App() {
               <main>
                 <Header />
                 <Routes>
-                  <Route path={`/`} element={<FoodTypesList />} />
-                  <Route path={`/foodtypes`} element={<FoodTypesList />} />
+                  <Route path={`/`} element={<FoodTypesList userId={user.username} />} />
+                  <Route path={`/foodtypes`} element={<FoodTypesList userId={user.username} />} />
                   <Route
                     path={`/settings`}
                     element={<Settings authInfo={user} signOut={signOut} />}

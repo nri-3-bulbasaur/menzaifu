@@ -2,6 +2,22 @@ body {
   min-width: 375px;
 }
 
+.modal-content-wrapper {
+  margin-top: 1vh;
+  text-align: center;
+  font-size: 1rem;
+}
+
+.button-yellow {
+  color: #ffffff;
+  background-color: #f1c40f;
+}
+
+.button-green {
+  color: #ffffff;
+  background-color: #1abc9c;
+}
+
 .amplify-heading--1 {
   font-size: 1.5rem;
   /* ボーダーを入れるならこのエリアを固定したいです */
@@ -13,7 +29,14 @@ body {
 
 .amplify-heading--1:first-letter {
   font-size: 2rem;
-  color: #ad002d;
+  color: #c31789;
+}
+
+.amplify-heading--2 {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin: 1vh 2vw;
+  text-align: center;
 }
 
 .type-text {
@@ -34,12 +57,20 @@ body {
 }
 
 @media (min-width: 768px) {
+  .modal-content-wrapper {
+    font-size: 1.25rem;
+  }
+
   .amplify-heading--1 {
     font-size: 2rem;
   }
 
   .amplify-heading--1:first-letter {
     font-size: 3rem;
+  }
+
+  .amplify-heading--2 {
+    font-size: 1.5rem;
   }
 
   .type-text {
