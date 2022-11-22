@@ -11,11 +11,25 @@ body {
 .button-yellow {
   color: #ffffff;
   background-color: #f1c40f;
+  border: solid 1px #f1c40f;
+}
+
+.button-yellow:hover {
+  color: #f1c40f;
+  background-color: #ffffff;
+  border: solid 1px #999999;
 }
 
 .button-green {
   color: #ffffff;
   background-color: #1abc9c;
+  border: solid 1px #1abc9c;
+}
+
+.button-green:hover {
+  color: #1abc9c;
+  background-color: #ffffff;
+  border: solid 1px #999999;
 }
 
 .amplify-heading--1 {
@@ -91,6 +105,12 @@ body {
   margin-left: 2vw;
   margin-right: 2vw;
   margin-bottom: 2vh;
+}
+
+.amplify-card:hover {
+  box-shadow: none;
+  border: solid 1px #cccccc;
+  transform: translate3d(0, 5px, 0);
 }
 
 .badge-red {

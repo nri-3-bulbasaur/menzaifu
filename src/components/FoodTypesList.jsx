@@ -57,7 +57,7 @@ export default function FoodTypesList({ userId }) {
     } else {
       const updateUser = { ...loginUser };
       updateUser.zaifuPoint -= modalFoodType.minZaifuPoint;
-      updateUsersUtil(updateUser);
+      await updateUsersUtil(updateUser);
     }
     await updateDbInfo();
   };
@@ -109,7 +109,7 @@ export default function FoodTypesList({ userId }) {
                 {foodType.minZaifuPoint.toString().toLocaleString().length <
                 stringLimit
                   ? `${foodType.minZaifuPoint.toLocaleString()}pt～`
-                  : `${foodType.minZaifuPoin.toExponential(stringLimit)}pt～`}
+                  : `${foodType.minZaifuPoint.toExponential(stringLimit)}pt～`}
               </Text>
             </Flex>
           </Flex>
