@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
+import PropTypes from 'prop-types';
 import {
   ThemeProvider,
   Heading,
@@ -18,7 +18,7 @@ import { getUser, updateUsersUtil } from '../utils/requestUsers';
 import getWindowSize from '../utils/getWindowSize';
 import Modal from 'react-modal';
 
-export default function FoodTypesList() {
+export default function FoodTypesList({ userId }) {
   const [user, setUser] = useState({});
   const [foodTypes, setFoodTypes] = useState([]);
   const [showConsumeModalFlag, setShowConsumeModalFlag] = useState(false);
@@ -30,7 +30,8 @@ export default function FoodTypesList() {
     (async () => {
       const foodTypesList = await listFoodTypesUtil();
       setFoodTypes(foodTypesList);
-      const loginUser = await getUser('104'); // 暫定！
+      console.log('userId:' + userId);
+      const loginUser = await getUser(userId);
       setUser(loginUser);
     })();
   }, []);
@@ -134,3 +135,7 @@ export default function FoodTypesList() {
     </>
   );
 }
+
+FoodTypesList.propTypes = {
+  userId: PropTypes.string.isRequired,
+};

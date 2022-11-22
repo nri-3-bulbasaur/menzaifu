@@ -28,8 +28,14 @@ function App() {
                 </Link>
                 <button onClick={signOut}>Sign out</button>
                 <Routes>
-                  <Route path={`/`} element={<FoodTypesList />} />
-                  <Route path={`/foodtypes`} element={<FoodTypesList />} />
+                  <Route
+                    path={`/`}
+                    element={<FoodTypesList userId={user.username} />}
+                  />
+                  <Route
+                    path={`/foodtypes`}
+                    element={<FoodTypesList userId={user.username} />}
+                  />
                   <Route path={`*`} element={<NotFound />} />
                 </Routes>
               </main>
