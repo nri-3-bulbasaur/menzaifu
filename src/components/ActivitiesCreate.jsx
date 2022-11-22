@@ -38,7 +38,6 @@ const ActivitiesCreate = (props) => {
   // 1. get userId
   const userInfo = props;
   const userName = userInfo.user.username;
-  console.log("user from props", userInfo.user.username, userName);
 
   // 2. get user ZaifuPoint by given userId
   const getUserPoint = async (userId) =>  {
@@ -54,11 +53,10 @@ const ActivitiesCreate = (props) => {
   };
 
   // 3. get user category(walking - amount) VALUE from screen
-  const getAmount = (event) => {
+  const getAmount = async (event) => {
     event.preventDefault();
     const form = new FormData(event.target);
     const amt = form.get('amount')
-    console.log("-------- amt --------". amt)
     return amt;
   };
 
@@ -123,11 +121,15 @@ const ActivitiesCreate = (props) => {
         {/* <h2>Create Activity</h2> */}
         <View
           as="form"
-          onSubmit={(e) => {
-            createActivity(e);
+          onSubmit={async (e) => {
+            await createActivity(e);
             // console.log("------ amount ------", FormData(e.target).get('amount'));
-            getAmount(e);
-            updateUserPoint(userName, 112 );            
+            const amt = await getAmount(e);
+            console.log("points before", points);
+            const points_after = points + calcZaifuPoint(amt);
+            setPoints(points_after);
+            console.log("point diff,points after", calcZaifuPoint(amt), points_after);
+            updateUserPoint(userName, points_after);
           }}
         >
           <Flex direction="column" alignItems="left">
