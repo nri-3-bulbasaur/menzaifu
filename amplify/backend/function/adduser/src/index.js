@@ -46,9 +46,8 @@ export const createUsers = /* GraphQL */ `
 /**
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
  */
-export const handler = async (event, callback) => {
+export const handler = async (event, context, callback) => {
   console.log(`EVENT: ${JSON.stringify(event)}`);
-  console.log(GRAPHQL_ENDPOINT);
 
   const data = JSON.stringify(event);
 
@@ -68,6 +67,8 @@ export const handler = async (event, callback) => {
   };
 
   const request = new Request(GRAPHQL_ENDPOINT, options);
+
+  console.log(request);
 
   let statusCode = 200;
   let body;
@@ -90,6 +91,8 @@ export const handler = async (event, callback) => {
       ],
     };
   }
+
+  console.log(body);
   // Return to Amazon Cognito
   callback(null, event);
 };

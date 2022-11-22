@@ -11,7 +11,7 @@ import {
 } from '@aws-amplify/ui-react';
 
 import '../assets/styles.css';
-
+import { reactCardTheme, badgeClassNameList } from './Common';
 import { listFoodTypesUtil } from '../utils/requestFoodTypes';
 import getWindowSize from '../utils/getWindowSize';
 
@@ -27,37 +27,6 @@ export default function FoodTypesList() {
     })();
   }, []);
 
-  const cardTheme = {
-    name: 'card-theme',
-    tokens: {
-      components: {
-        card: {
-          boxShadow: { value: '{shadows.large}' },
-          borderRadius: { value: '{radii.large}' },
-          borderWidth: { value: '2px' },
-        },
-      },
-    },
-  };
-
-  // Variationは意味合いがつかみにくくなるので、classNameにしておく
-  const selectBadgeClass = (label) => {
-    switch (label) {
-      case 'がっつり':
-        return 'badge-red';
-      case 'ヘルシー':
-        return 'badge-green';
-      case 'スイーツ':
-        return 'badge-yellow';
-      case '飲み':
-        return 'badge-pink';
-      case 'テイクアウト':
-        return 'badge-blue';
-      default:
-        return 'badge-default';
-    }
-  };
-
   const foodTypesElm = foodTypes.map((foodType) => {
     if (foodType.minZaifuPoint > 0) {
       return (
@@ -67,7 +36,11 @@ export default function FoodTypesList() {
             <Flex direction="column" gap="xxxs">
               <Flex>
                 <Badge
-                  className={`type-text ${selectBadgeClass(foodType.type)}`}
+                  className={`type-text ${
+                    foodType.type in badgeClassNameList
+                      ? badgeClassNameList[foodType.type]
+                      : 'badge-default'
+                  }`}
                 >
                   {foodType.type.length < stringLimit
                     ? foodType.type
@@ -95,7 +68,7 @@ export default function FoodTypesList() {
   return (
     <>
       <Heading level={1}>罪なき飲食店</Heading>
-      <ThemeProvider theme={cardTheme}>{foodTypesElm}</ThemeProvider>
+      <ThemeProvider theme={reactCardTheme}>{foodTypesElm}</ThemeProvider>
     </>
   );
 }

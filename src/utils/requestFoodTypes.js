@@ -46,6 +46,11 @@ const getImageFromS3 = async (foodTypes) => {
 const formatFoodType = (foodType) => {
   const newFoodType = { ...foodType };
 
+  // コメント内のCcやらCfやらは、下記URLを参照
+  // https://www.compart.com/en/unicode/category
+
+  // 1. \s + 改行(\r, \n) + Cc + Cf(表示方向の制御文字) をすべて除去する
+  // 2. javascriptスキーム悪用防止のため、同スキームを示す文字列を除去する（実装上、悪用されるケースはないものと思うが一応…）
   if ('image' in newFoodType && typeof newFoodType.image === 'string') {
     newFoodType.image = newFoodType.image
       .replace(
@@ -55,19 +60,24 @@ const formatFoodType = (foodType) => {
       .replace(/(^javascript:|^)/, '');
   }
 
+  // 1. 改行(\r, \n) + Cc + Cf(表示方向の制御文字) をすべて除去する
+  // 2. javascriptスキーム悪用防止のため、同スキームを示す文字列を除去する（実装上、悪用されるケースはないものと思うが一応…）
+  // 3. \sはすべて半角スペース1つ ' ' に置換。タブ文字も半角スペースに置換される
+  // 4. 文字列の先頭・末尾のスペースを消す
   if ('type' in newFoodType && typeof newFoodType.type === 'string') {
     newFoodType.type = newFoodType.type
       .replace(/[\r\n\u0000-\u001F\u007F-\u009F\u200E\u200F\u202A-\u202E]/g, '')
-      .replace(/[\s]/g, ' ')
       .replace(/(^\s*javascript:|^)/, '')
+      .replace(/[\s]/g, ' ')
       .trim();
   }
 
+  // 同上
   if ('category' in newFoodType && typeof newFoodType.category === 'string') {
     newFoodType.category = newFoodType.category
       .replace(/[\r\n\u0000-\u001F\u007F-\u009F\u200E\u200F\u202A-\u202E]/g, '')
-      .replace(/[\s]/g, ' ')
       .replace(/(^\s*javascript:|^)/, '')
+      .replace(/[\s]/g, ' ')
       .trim();
   }
 
