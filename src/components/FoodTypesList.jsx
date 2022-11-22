@@ -119,7 +119,7 @@ export default function FoodTypesList({ userId }) {
   });
 
   return (
-    <>
+    <div className="foodtypes-wrapper">
       <Heading level={1}>罪なき飲食店</Heading>
       <Modal
         isOpen={showErrorModalFlag}
@@ -181,7 +181,7 @@ export default function FoodTypesList({ userId }) {
         </Flex>
       </Modal>
       <ThemeProvider theme={reactCardTheme}>{foodTypesElm}</ThemeProvider>
-    </>
+    </div>
   );
 }
 

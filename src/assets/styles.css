@@ -122,3 +122,8 @@ body {
   color: #ffffff;
   background-color: #7f7f7f;
 }
+
+.foodtypes-wrapper {
+  position: relative;
+  top: 7vh;
+}

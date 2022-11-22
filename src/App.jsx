@@ -1,6 +1,6 @@
 // React
 import React from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
 // Amplify
 import { Amplify } from 'aws-amplify';
@@ -11,10 +11,11 @@ import awsExports from './aws-exports';
 // Components
 import FoodTypesList from './components/FoodTypesList';
 import NotFound from './components/NotFound';
+import Header from './components/Header';
+import Settings from './components/Settings';
 
 Amplify.configure(awsExports);
 
-// lint err function App(signOut, user) {
 function App() {
   return (
     <>
@@ -23,18 +24,13 @@ function App() {
           <Authenticator socialProviders={['google']}>
             {({ signOut, user }) => (
               <main>
-                <Link to="/">
-                  <h1>Hello</h1>
-                </Link>
-                <button onClick={signOut}>Sign out</button>
+                <Header />
                 <Routes>
+                  <Route path={`/`} element={<FoodTypesList userId={user.username} />} />
+                  <Route path={`/foodtypes`} element={<FoodTypesList userId={user.username} />} />
                   <Route
-                    path={`/`}
-                    element={<FoodTypesList userId={user.username} />}
-                  />
-                  <Route
-                    path={`/foodtypes`}
-                    element={<FoodTypesList userId={user.username} />}
+                    path={`/settings`}
+                    element={<Settings authInfo={user} signOut={signOut} />}
                   />
                   <Route path={`*`} element={<NotFound />} />
                 </Routes>
