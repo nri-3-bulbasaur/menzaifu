@@ -19,7 +19,7 @@ exports.handler = async (event, context, callback) => {
       createdAt: now.toISOString(),
     },
   };
-  // eslint-disable-next-line no-unused-vars
+
   try {
     const result = await docClient.put(params).promise();
     console.log(result);
