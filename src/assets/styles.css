@@ -93,6 +93,12 @@ body {
   margin-bottom: 2vh;
 }
 
+.amplify-card:hover {
+  box-shadow: none;
+  border: solid 1px #cccccc;
+  transform: translate3d(0, 5px, 0);
+}
+
 .badge-red {
   color: #ffffff;
   background-color: #c31789;
