@@ -1,0 +1,6 @@
+{
+  "AppSyncApiName": "menzaifu",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthModeLastUpdated": "2022-11-19T12:28:03.569Z"
+}

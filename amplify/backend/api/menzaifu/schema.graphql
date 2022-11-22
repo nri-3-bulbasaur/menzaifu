@@ -1,0 +1,38 @@
+type Activities @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  activityId: String
+  amount: String
+  userId: String
+}
+
+type FoodTypes @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  type: String
+  category: String
+  minZaifuPoint: Int
+  image: String
+}
+
+type Users @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  userId: String
+  height: Int
+  weight: Float
+  age: Int
+  zaifuPoint: Int
+}
+
+type Test @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  stringField: String
+  IntField: Int
+  boolField: Boolean
+  awsDateTimeField: AWSDateTime
+}
+
+type Todo @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String!
+  description: String
+}
+ 
