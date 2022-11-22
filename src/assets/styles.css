@@ -4,7 +4,8 @@ body {
 
 .amplify-heading--1 {
   font-size: 1.5rem;
-  border-bottom: solid 0.25rem #ad002d;
+  /* ボーダーを入れるならこのエリアを固定したいです */
+  /* border-bottom: solid 0.25rem #ad002d; */
   padding: 0.5rem 0;
   margin: 1vh 2vw;
   text-align: center;
@@ -63,30 +64,30 @@ body {
 
 .badge-red {
   color: #ffffff;
-  background-color: #ec6a52;
+  background-color: #c31789;
 }
 
 .badge-blue {
   color: #ffffff;
-  background-color: #93aec1;
+  background-color: #00039d;
 }
 
 .badge-yellow {
   color: #ffffff;
-  background-color: #f8b042;
+  background-color: #f1c40f;
 }
 
 .badge-green {
   color: #ffffff;
-  background-color: #9dbdba;
+  background-color: #1abc9c;
 }
 
 .badge-pink {
   color: #ffffff;
-  background-color: #f3b7ad;
+  background-color: #a60299;
 }
 
 .badge-default {
   color: #ffffff;
-  background-color: #45496a;
+  background-color: #7f7f7f;
 }
