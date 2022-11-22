@@ -45,11 +45,15 @@ export default function FoodTypesList({ userId }) {
     return { loginUser, foodTypesList };
   };
 
+  const openErrorModal = () => {
+    setShowConsumeModalFlag(false);
+    setShowErrorModalFlag(true);
+  };
+
   const consumePoint = async () => {
     const { loginUser: loginUser } = await updateDbInfo();
     if (loginUser.zaifuPoint < modalFoodType.minZaifuPoint) {
-      setShowConsumeModalFlag(false);
-      setShowErrorModalFlag(true);
+      openErrorModal();
     } else {
       const updateUser = { ...loginUser };
       updateUser.zaifuPoint -= modalFoodType.minZaifuPoint;
