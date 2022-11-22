@@ -8,19 +8,25 @@ import TitleIcon from '../assets/menzaifu-title.png';
 const Header = () => {
   return (
     <>
-      <div className="header">
-        <Flex justifyContent="flex-end" alignItems="flex-end">
-          <Image
-            alignSelf="center"
-            src={TitleIcon}
-            alt="title"
-            maxWidth="25vw"
-          />
-          <Link className="setting-button" to="/settings">
-            <IoMdSettings size={50} color={`#383838`} />
-          </Link>
-        </Flex>
-      </div>
+      {/* <div className="header"> */}
+      <Flex
+        className="header"
+        justifyContent="space-between"
+        alignItems="center"
+      >
+        <div></div>
+        <Image
+          alignSelf="center"
+          src={TitleIcon}
+          alt="title"
+          maxWidth="25vw"
+          maxHeight="7vh"
+        />
+        <Link className="setting-button" to="/settings">
+          <IoMdSettings size={`5vh`} color={`#383838`} />
+        </Link>
+      </Flex>
+      {/* </div> */}
     </>
   );
 };
