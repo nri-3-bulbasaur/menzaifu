@@ -130,16 +130,19 @@ export default function FoodTypesList({ userId }) {
         contentLabel="エラー表示"
       >
         <Heading level={2}>エラー</Heading>
-        <Text>ポイントが足りません…</Text>
-        <Button
-          loadingText=""
-          onClick={() => {
-            setShowErrorModalFlag(false);
-          }}
-          ariaLabel=""
-        >
-          OK
-        </Button>
+        <Flex direction="column" className="modal-content-wrapper">
+          <Text>ポイントが足りません…</Text>
+          <Button
+            loadingText=""
+            onClick={() => {
+              setShowErrorModalFlag(false);
+            }}
+            ariaLabel=""
+            className="button-green"
+          >
+            😇OK
+          </Button>
+        </Flex>
       </Modal>
       <Modal
         isOpen={showConsumeModalFlag}
@@ -151,26 +154,30 @@ export default function FoodTypesList({ userId }) {
         contentLabel="ポイント消費確認"
       >
         <Heading level={2}>{modalFoodType.category}</Heading>
-        <Text>{modalFoodType.minZaifuPoint} ptを使って食べますか？</Text>
-        <Button
-          loadingText=""
-          onClick={() => {
-            setShowConsumeModalFlag(false);
-          }}
-          ariaLabel=""
-        >
-          やめとく
-        </Button>
-        <Button
-          loadingText=""
-          onClick={() => {
-            consumePoint();
-            setShowConsumeModalFlag(false);
-          }}
-          ariaLabel=""
-        >
-          たべる
-        </Button>
+        <Flex direction="column" className="modal-content-wrapper">
+          <Text>{modalFoodType.minZaifuPoint} ptを使って食べますか？</Text>
+          <Button
+            loadingText=""
+            onClick={() => {
+              setShowConsumeModalFlag(false);
+            }}
+            ariaLabel=""
+            className="button-green"
+          >
+            🤐やめとく
+          </Button>
+          <Button
+            loadingText=""
+            onClick={() => {
+              consumePoint();
+              setShowConsumeModalFlag(false);
+            }}
+            ariaLabel=""
+            className="button-yellow"
+          >
+            🍴たべる
+          </Button>
+        </Flex>
       </Modal>
       <ThemeProvider theme={reactCardTheme}>{foodTypesElm}</ThemeProvider>
     </>

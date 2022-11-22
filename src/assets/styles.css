@@ -2,6 +2,22 @@ body {
   min-width: 375px;
 }
 
+.modal-content-wrapper {
+  margin-top: 1vh;
+  text-align: center;
+  font-size: 1.25rem;
+}
+
+.button-yellow {
+  color: #ffffff;
+  background-color: #f1c40f;
+}
+
+.button-green {
+  color: #ffffff;
+  background-color: #1abc9c;
+}
+
 .amplify-heading--1 {
   font-size: 1.5rem;
   /* ボーダーを入れるならこのエリアを固定したいです */
@@ -17,10 +33,9 @@ body {
 }
 
 .amplify-heading--2 {
-  font-size: 1.25 rem;
+  font-size: 1.5rem;
   margin: 1vh 2vw;
   text-align: center;
-  color: #00039d;
 }
 
 .type-text {
