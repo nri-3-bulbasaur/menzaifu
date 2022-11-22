@@ -21,7 +21,7 @@ function App() {
     <>
       <div className="App">
         <header className="App-header">
-          <Authenticator>
+          <Authenticator socialProviders={['google']}>
             {({ signOut, user }) => (
               <main>
                 <h1>Hello {user.username}</h1>
