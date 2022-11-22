@@ -70,6 +70,7 @@ export default function FoodTypesList({ userId }) {
       bottom: 'auto',
       marginRight: '-50%',
       transform: 'translate(-50%, -50%)',
+      border: '2px solid #999999',
     },
   };
 
