@@ -24,7 +24,7 @@ function App() {
             {({ signOut, user }) => (
               <main>
                 <Link to="/">
-                  <h1>Hello {user.username}</h1>
+                  <h1>Hello</h1>
                 </Link>
                 <button onClick={signOut}>Sign out</button>
                 <Routes>
