@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-// import { useHistory } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import './ActivitiesCreate.css';
 import {
   View,
@@ -24,22 +24,33 @@ import {
 } from '../utils/requestUsers';
 import '@aws-amplify/ui-react/styles.css';
 
+// 1. get userId
+// 2. get user ZaifuPoint by given userId
+// 2.1 show ZaifuPoint on screen
+// 3. get user category(walking - amount) VALUE from screen
+// 4.  calculate ZaifuPoint by give VALUE
+// 5. update ZaifuPoint by given userID & diff point
+// 6.(PENDING) redirect to ./ by button-click
+
 const ActivitiesCreate = (props) => {
   // eslint-disable-next-line no-unused-vars
   const [activities, setActivities] = useState([]);
   const [points, setPoints] = useState();
-
-  // const history = useHistory(); // historyを用意する
-  // const onClickButton = () => {
-  //   history.goBack(); // 戻ることができる
-  // };
 
   // 2.1 show ZaifuPoint on screen
   useEffect(() => {
     (async () => {
       const initPoint = await getUserPoint(userInfo.user.username);
       console.log("initPoint", initPoint);
-      setPoints(initPoint);  
+      setPoints(initPoint);
+      const activitiesList = await listActivitiesUtil();
+      // activitiesList sorted by createdAt
+      setActivities(activitiesList.sort((a, b) => {
+        if(a.createdAt < b.createdAt) return -1;
+        else if(a.createdAt > b.createdAt) return 1;
+        return 0;
+      }));
+      // console.log("activitiesList", activitiesList);
     })();
   }, []);
 
@@ -49,19 +60,20 @@ const ActivitiesCreate = (props) => {
 
   // 2. get user ZaifuPoint by given userId
   const getUserPoint = async (userId) =>  {
-    const userPoint = await listUsersUtil().then(
-      (res) => res.find(user => user.userId === userId).zaifuPoint
-    );
-    setPoints(userPoint);
-    return userPoint;
+    const userList = await listUsersUtil();
+    console.log("userList", userList);
+    const userPoint = userList.find(user => user.userId === userId).zaifuPoint;
+    if (userPoint) return userPoint;
+    else return 0;
   };
 
   // 3. get user category(walking - amount) VALUE from screen
   const getAmount = async (event) => {
-    event.preventDefault();
-    const form = new FormData(event.target);
-    const amt = form.get('amount');
-    return amt;
+    // event.preventDefault();
+    // const form = new FormData(event.target);
+    // const amt = form.get('amount');
+    // return amt;
+    return event.target.form[0].value;
   };
 
   // 4.  calculate ZaifuPoint by give VALUE
@@ -88,34 +100,20 @@ const ActivitiesCreate = (props) => {
     }
   };
 
-  useEffect(() => {
-    (async () => {
-      const activitiesList = await listActivitiesUtil();
-      setActivities(activitiesList);
-    })();
-  }, []);
-
-  const createActivity = async (event) => {
+  const createActivity = async (event, userId, activityId) => {
+    console.log("createActivity()");
     event.preventDefault();
-    const form = new FormData(event.target);
+    // const form = new FormData(event.target);
+    console.log("event.target.form[0].value", event.target.form[0].value);
     const data = {
-      userId: form.get('userId'),
-      activityId: form.get('activityId'),
-      amount: form.get('amount'),
+      userId: userId,
+      activityId: activityId,
+      amount: event.target.form[0].value,
+      // amount: form.get('amount'),
     };
     const newActivities = await createActivitiesUtil(data);    
     setActivities(newActivities);
   };
-
-  // 1. get userId
-  // 2. get user ZaifuPoint by given userId
-  // 2.1 show ZaifuPoint on screen
-  // 3. get user category(walking - amount) VALUE from screen
-  // 4.  calculate ZaifuPoint by give VALUE
-  // 5. update ZaifuPoint by given userID & diff point
-  // 6. calc ZaifuPoint diff (+ xxx point plused) and show on screen
-  // 7. change SAVE button to BACK button 
-
 
   return (
     <>
@@ -123,30 +121,38 @@ const ActivitiesCreate = (props) => {
         <h2>Zaifu &nbsp; { points } pt</h2>
         <View
           as="form"
-          onSubmit={async (e) => {
-            await createActivity(e);
-            const amt = await getAmount(e);
-            const points_after = points + calcZaifuPoint(amt);
-            setPoints(points_after);
-            updateUserPoint(userName, points_after);
-            // onClickButton();
-          }}
+          // onSubmit={async (e) => {
+          //   console.log("------------- onSubmit (e)", e);
+          //   await createActivity(e, userName, 'walking');
+          //   const amt = await getAmount(e);
+          //   const points_after = points + calcZaifuPoint(amt);
+          //   updateUserPoint(userName, points_after);
+          // }}
         >
           <Flex direction="column" alignItems="left">
             <TextField
               name="amount"
               placeholder="歩"
-              label="ワォーキング"
+              label="ウォーキング"
               variation="default"
               required
             />
-            <Button id="button"
-              type="submit" 
-              variation="primary"
-              isFullWidth={true}
-                  >
-            保存
-          </Button>
+            <Link to="/">
+              <Button id="button"
+                type="submit" 
+                variation="primary"
+                isFullWidth={true}
+                onClick={ async (e) => { 
+                  // console.log("------------- onClick (e)", e);
+                  await createActivity(e, userName, 'walking');
+                  const amt = await getAmount(e);
+                  const points_after = points + calcZaifuPoint(amt);
+                  updateUserPoint(userName, points_after);      
+                }}                    
+              >
+              保存
+              </Button>
+            </Link>
           </Flex>
         </View>
       </div>

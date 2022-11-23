@@ -56,5 +56,13 @@
       "providerPlugin": "awscloudformation",
       "dependsOn": []
     }
+  },
+  "function": {
+    "adduser": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": []
+    }
   }
 }
