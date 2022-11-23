@@ -20,7 +20,6 @@ import Modal from 'react-modal';
 
 export default function FoodTypesList({ userId }) {
   const [updateUiToggle, setUpdateUiToggle] = useState(0);
-  const [user, setUser] = useState({});
   const [foodTypes, setFoodTypes] = useState([]);
   const [showConsumeModalFlag, setShowConsumeModalFlag] = useState(false);
   const [showErrorModalFlag, setShowErrorModalFlag] = useState(false);
@@ -30,23 +29,15 @@ export default function FoodTypesList({ userId }) {
 
   useEffect(() => {
     (async () => {
-      console.log('useEffect started');
-      await getLatestUser();
       await getLatestFoodTypes();
-      console.log('useEffect finished');
     })();
   }, [updateUiToggle]);
 
-  const getLatestUser = async () => {
-    const latestUser = await getUser(userId);
-    setUser(latestUser);
-
-    return latestUser;
-  };
-
   const getLatestFoodTypes = async () => {
-    const latestFoodTypes = await listFoodTypesUtil().filter(
-      (foodType) => user.zaifuPoint >= foodType.minZaifuPoint
+    let latestFoodTypes = await listFoodTypesUtil();
+    const latestUser = await getUser(userId);
+    latestFoodTypes = latestFoodTypes.filter(
+      (foodType) => latestUser.zaifuPoint >= foodType.minZaifuPoint
     );
     setFoodTypes(latestFoodTypes);
 
@@ -59,7 +50,7 @@ export default function FoodTypesList({ userId }) {
   };
 
   const consumePoint = async () => {
-    const latestUser = await getLatestUser();
+    const latestUser = await getUser(userId);
     if (latestUser.zaifuPoint < modalFoodType.minZaifuPoint) {
       openErrorModal();
     } else {
@@ -177,7 +168,7 @@ export default function FoodTypesList({ userId }) {
       <ThemeProvider theme={reactCardTheme}>
         {foodTypes.length > 0 ? (
           foodTypes.map((foodType) => {
-            getCardElement(foodType);
+            return getCardElement(foodType);
           })
         ) : (
           <Text>
