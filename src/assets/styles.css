@@ -146,4 +146,5 @@ body {
 .foodtypes-wrapper {
   position: relative;
   top: 7vh;
+  text-align: center;
 }

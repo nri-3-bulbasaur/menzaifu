@@ -18,3 +18,15 @@ export const badgeClassNameList = {
   飲み: 'badge-blue',
   テイクアウト: 'badge-blue',
 };
+
+export const modalStyle = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    border: '2px solid #999999',
+  },
+};
