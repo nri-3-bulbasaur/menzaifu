@@ -9,6 +9,7 @@ import {
   Badge,
   Text,
   Button,
+  View,
 } from '@aws-amplify/ui-react';
 
 import '../assets/styles.css';
@@ -167,17 +168,21 @@ export default function FoodTypesList({ userId }) {
       </Modal>
       <ThemeProvider theme={reactCardTheme}>
         {!foodTypes ? (
-          <Text>🕛 Now Loading... 🕧</Text>
+          <View as="div" className="message-wrapper">
+            <Text>🕛 Now Loading... 🕧</Text>
+          </View>
         ) : foodTypes.length > 0 ? (
           foodTypes.map((foodType) => {
             return getCardElement(foodType);
           })
         ) : (
-          <Text>
-            飲食可能なお店が見つかりませんでした。
-            <br />
-            動いた後の食事は美味しいですよ！🚶‍♂️
-          </Text>
+          <View as="div" className="message-wrapper">
+            <Text>
+              飲食可能なお店が見つかりませんでした。
+              <br />
+              動いた後の食事は美味しいですよ！🚶‍♂️
+            </Text>
+          </View>
         )}
       </ThemeProvider>
     </div>
