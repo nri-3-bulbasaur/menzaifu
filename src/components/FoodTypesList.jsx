@@ -20,7 +20,7 @@ import Modal from 'react-modal';
 
 export default function FoodTypesList({ userId }) {
   const [updateUiToggle, setUpdateUiToggle] = useState(0);
-  const [foodTypes, setFoodTypes] = useState([]);
+  const [foodTypes, setFoodTypes] = useState();
   const [showConsumeModalFlag, setShowConsumeModalFlag] = useState(false);
   const [showErrorModalFlag, setShowErrorModalFlag] = useState(false);
   const [modalFoodType, setModalFoodType] = useState({});
@@ -166,7 +166,9 @@ export default function FoodTypesList({ userId }) {
         </Flex>
       </Modal>
       <ThemeProvider theme={reactCardTheme}>
-        {foodTypes.length > 0 ? (
+        {!foodTypes ? (
+          <Text>🕛 Now Loading... 🕧</Text>
+        ) : foodTypes.length > 0 ? (
           foodTypes.map((foodType) => {
             return getCardElement(foodType);
           })
