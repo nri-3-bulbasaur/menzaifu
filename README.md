@@ -57,7 +57,7 @@ https://docs.github.com/ja/authentication/connecting-to-github-with-ssh
 $ sudo npm install -g @aws-amplify/cli
 ```
 
-## 4. [PC] 本 Project の Clone ～ 起動設定
+## 6. [PC] 本 Project の Clone ～ 起動設定
 
 1. 作業ディレクトリに移動し、本リポジトリを Clone します。SSH 設定済の場合は、下記コマンドとなります。<br />その後に、development ブランチを checkout します。
 
