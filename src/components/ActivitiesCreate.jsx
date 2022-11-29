@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import '../assets/ActivitiesCreate.css';
 import {
   View,
@@ -36,6 +36,8 @@ const ActivitiesCreate = (props) => {
   // eslint-disable-next-line no-unused-vars
   const [activities, setActivities] = useState([]);
   const [points, setPoints] = useState();
+
+  const navigate = useNavigate()
 
   // 2.1 show ZaifuPoint on screen
   useEffect(() => {
@@ -137,7 +139,6 @@ const ActivitiesCreate = (props) => {
               variation="default"
               required
             />
-            <Link to="/">
               <Button id="button"
                 type="submit" 
                 variation="primary"
@@ -148,11 +149,11 @@ const ActivitiesCreate = (props) => {
                   const amt = await getAmount(e);
                   const points_after = points + calcZaifuPoint(amt);
                   await updateUserPoint(userName, points_after);
+                  navigate("/");
                 }}    
               >
               保存
               </Button>
-            </Link>
           </Flex>
         </View>
       </div>
