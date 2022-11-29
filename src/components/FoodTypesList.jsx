@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
   ThemeProvider,
@@ -18,6 +19,7 @@ import { listFoodTypesUtil } from '../utils/requestFoodTypes';
 import { getUser, updateUsersUtil } from '../utils/requestUsers';
 import getWindowSize from '../utils/getWindowSize';
 import Modal from 'react-modal';
+import ZaifuPoint from './ZaifuPoint';
 
 export default function FoodTypesList({ userId }) {
   const [updateUiToggle, setUpdateUiToggle] = useState(0);
@@ -106,6 +108,8 @@ export default function FoodTypesList({ userId }) {
 
   return (
     <div className="foodtypes-wrapper">
+      <ZaifuPoint userId={ userId }/>
+      <Button className='button-green'><Link to="/activities">アクティビティ</Link></Button>
       <Heading level={1}>罪なき飲食店</Heading>
       <Modal
         isOpen={showErrorModalFlag}
