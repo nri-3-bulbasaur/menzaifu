@@ -32,6 +32,12 @@ body {
   border: solid 1px #999999;
 }
 
+.button-gray {
+  color: #ffffff;
+  background-color: gray;
+  border: solid 1px gray;
+}
+
 .amplify-heading--1 {
   font-size: 1.5rem;
   /* ボーダーを入れるならこのエリアを固定したいです */
