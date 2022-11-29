@@ -29,14 +29,14 @@ const signInURI = awsExports.oauth.redirectSignIn.split(',')
 const signOutURI = awsExports.oauth.redirectSignOut.split(',')
 
 if (isLocalhost) {
-  awsExports.oauth.redirectSignIn = signInURI[0]
-  awsExports.oauth.redirectSignOut = signOutURI[0]
+  awsExports.oauth.redirectSignIn = signInURI[1]
+  awsExports.oauth.redirectSignOut = signOutURI[1]
 } else if (window.location.hostname === 
   // Add Your Application Domain here. For Example:
   "https://staging.d4mynp1yvqb1q.amplifyapp.com/"
 ) {
-  awsExports.oauth.redirectSignIn = signInURI[1]
-  awsExports.oauth.redirectSignOut = signOutURI[1]
+  awsExports.oauth.redirectSignIn = signInURI[2]
+  awsExports.oauth.redirectSignOut = signOutURI[2]
 } else {
   console.alert('This is not possible')
 }
