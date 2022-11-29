@@ -148,6 +148,21 @@ body {
   top: 7vh;
 }
 
+.point-wrapper {
+  position: relative;
+  top: 7vh;
+}
+
 .message-wrapper {
   text-align: center;
+}
+
+.point {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.button-activity {
+  display: flex;
+  justify-content: flex-end;
 }
