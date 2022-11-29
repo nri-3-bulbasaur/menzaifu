@@ -31,13 +31,18 @@ const isLocalhost = Boolean(
 const signInURI = awsExports.oauth.redirectSignIn.split(',');
 const signOutURI = awsExports.oauth.redirectSignOut.split(',');
 
+console.log(window.location);
+
 if (isLocalhost) {
-  awsExports.oauth.redirectSignIn = signInURI[1];
-  awsExports.oauth.redirectSignOut = signOutURI[1];
+  if (window.location.port === '3000') {
+    awsExports.oauth.redirectSignIn = signInURI[1];
+    awsExports.oauth.redirectSignOut = signOutURI[1];
+  } else {
+    awsExports.oauth.redirectSignIn = signInURI[0];
+    awsExports.oauth.redirectSignOut = signOutURI[0];
+  }
 } else if (
-  window.location.hostname ===
-  // Add Your Application Domain here. For Example:
-  'https://staging.d4mynp1yvqb1q.amplifyapp.com/'
+  window.location.origin === 'https://staging.d4mynp1yvqb1q.amplifyapp.com/'
 ) {
   awsExports.oauth.redirectSignIn = signInURI[2];
   awsExports.oauth.redirectSignOut = signOutURI[2];
