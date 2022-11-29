@@ -57,7 +57,7 @@
       "Google"
     ],
     "hostedUIProviderMeta": "[{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"sub\"}}]",
-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://menzaifue1928a43-e1928a43-staging.auth.ap-northeast-1.amazoncognito.com\"],\"LogoutURLs\":[\"https://menzaifue1928a43-e1928a43-staging.auth.ap-northeast-1.amazoncognito.com\"]}",
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://menzaifue1928a43-e1928a43-staging.auth.ap-northeast-1.amazoncognito.com/oauth2/idpresponse\"],\"LogoutURLs\":[\"https://menzaifue1928a43-e1928a43-staging.auth.ap-northeast-1.amazoncognito.com/oauth2/idpresponse\"]}",
     "authProviders": [],
     "userPoolGroups": false,
     "adminQueries": false,
