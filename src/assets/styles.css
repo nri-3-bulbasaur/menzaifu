@@ -147,3 +147,7 @@ body {
   position: relative;
   top: 7vh;
 }
+
+.message-wrapper {
+  text-align: center;
+}

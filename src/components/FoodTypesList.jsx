@@ -9,18 +9,19 @@ import {
   Badge,
   Text,
   Button,
+  View,
 } from '@aws-amplify/ui-react';
 
 import '../assets/styles.css';
-import { reactCardTheme, badgeClassNameList } from './Common';
+import { reactCardTheme, badgeClassNameList, modalStyle } from './Common';
 import { listFoodTypesUtil } from '../utils/requestFoodTypes';
 import { getUser, updateUsersUtil } from '../utils/requestUsers';
 import getWindowSize from '../utils/getWindowSize';
 import Modal from 'react-modal';
 
 export default function FoodTypesList({ userId }) {
-  const [user, setUser] = useState({});
-  const [foodTypes, setFoodTypes] = useState([]);
+  const [updateUiToggle, setUpdateUiToggle] = useState(0);
+  const [foodTypes, setFoodTypes] = useState();
   const [showConsumeModalFlag, setShowConsumeModalFlag] = useState(false);
   const [showErrorModalFlag, setShowErrorModalFlag] = useState(false);
   const [modalFoodType, setModalFoodType] = useState({});
@@ -29,20 +30,19 @@ export default function FoodTypesList({ userId }) {
 
   useEffect(() => {
     (async () => {
-      const foodTypesList = await listFoodTypesUtil();
-      setFoodTypes(foodTypesList);
-      const loginUser = await getUser(userId);
-      setUser(loginUser);
+      await getLatestFoodTypes();
     })();
-  }, []);
+  }, [updateUiToggle]);
 
-  const updateDbInfo = async () => {
-    const loginUser = await getUser(userId);
-    setUser(loginUser);
-    const foodTypesList = await listFoodTypesUtil();
-    setFoodTypes(foodTypesList);
+  const getLatestFoodTypes = async () => {
+    let latestFoodTypes = await listFoodTypesUtil();
+    const latestUser = await getUser(userId);
+    latestFoodTypes = latestFoodTypes.filter(
+      (foodType) => latestUser.zaifuPoint >= foodType.minZaifuPoint
+    );
+    setFoodTypes(latestFoodTypes);
 
-    return { loginUser, foodTypesList };
+    return latestFoodTypes;
   };
 
   const openErrorModal = () => {
@@ -51,72 +51,58 @@ export default function FoodTypesList({ userId }) {
   };
 
   const consumePoint = async () => {
-    const { loginUser: loginUser } = await updateDbInfo();
-    if (loginUser.zaifuPoint < modalFoodType.minZaifuPoint) {
+    const latestUser = await getUser(userId);
+    if (latestUser.zaifuPoint < modalFoodType.minZaifuPoint) {
       openErrorModal();
     } else {
-      const updateUser = { ...loginUser };
+      const updateUser = { ...latestUser };
       updateUser.zaifuPoint -= modalFoodType.minZaifuPoint;
       await updateUsersUtil(updateUser);
     }
-    await updateDbInfo();
+    setUpdateUiToggle(Math.random());
   };
 
-  const customStyles = {
-    content: {
-      top: '50%',
-      left: '50%',
-      right: 'auto',
-      bottom: 'auto',
-      marginRight: '-50%',
-      transform: 'translate(-50%, -50%)',
-      border: '2px solid #999999',
-    },
-  };
-
-  const foodTypesElm = foodTypes.map((foodType) => {
-    if (user.zaifuPoint >= foodType.minZaifuPoint) {
-      return (
-        <Card
-          key={foodType.id}
-          onClick={() => {
-            setModalFoodType(foodType);
-            setShowConsumeModalFlag(true);
-          }}
-        >
-          <Flex alignItems="flex-start">
-            <Image src={foodType.url} alt={foodType.category} maxWidth="25vw" />
-            <Flex direction="column" gap="xxxs">
-              <Flex>
-                <Badge
-                  className={`type-text ${
-                    foodType.type in badgeClassNameList
-                      ? badgeClassNameList[foodType.type]
-                      : 'badge-default'
-                  }`}
-                >
-                  {foodType.type.length < stringLimit
-                    ? foodType.type
-                    : `${foodType.type.substring(0, stringLimit)}...`}
-                </Badge>
-              </Flex>
-              <Text className="category-text">
-                {foodType.category.length < stringLimit
-                  ? foodType.category
-                  : `${foodType.category.substring(0, stringLimit)}...`}
-              </Text>
-              <Text className="point-text">
-                {foodType.minZaifuPoint.toString().toLocaleString().length <
-                stringLimit
-                  ? `${foodType.minZaifuPoint.toLocaleString()}pt～`
-                  : `${foodType.minZaifuPoint.toExponential(stringLimit)}pt～`}
-              </Text>
+  const getCardElement = (foodType) => {
+    return (
+      <Card
+        key={foodType.id}
+        onClick={() => {
+          setModalFoodType(foodType);
+          setShowConsumeModalFlag(true);
+        }}
+      >
+        <Flex alignItems="flex-start">
+          <Image src={foodType.url} alt={foodType.category} maxWidth="25vw" />
+          <Flex direction="column" gap="xxxs">
+            <Flex>
+              <Badge
+                className={`type-text ${
+                  foodType.type in badgeClassNameList
+                    ? badgeClassNameList[foodType.type]
+                    : 'badge-default'
+                }`}
+              >
+                {foodType.type.length < stringLimit
+                  ? foodType.type
+                  : `${foodType.type.substring(0, stringLimit)}...`}
+              </Badge>
             </Flex>
+            <Text className="category-text">
+              {foodType.category.length < stringLimit
+                ? foodType.category
+                : `${foodType.category.substring(0, stringLimit)}...`}
+            </Text>
+            <Text className="point-text">
+              {foodType.minZaifuPoint.toString().toLocaleString().length <
+              stringLimit
+                ? `${foodType.minZaifuPoint.toLocaleString()}pt～`
+                : `${foodType.minZaifuPoint.toExponential(stringLimit)}pt～`}
+            </Text>
           </Flex>
-        </Card>
-      );
-    }
-  });
+        </Flex>
+      </Card>
+    );
+  };
 
   return (
     <div className="foodtypes-wrapper">
@@ -127,7 +113,7 @@ export default function FoodTypesList({ userId }) {
         onRequestClose={() => {
           setShowErrorModalFlag(false);
         }}
-        style={customStyles}
+        style={modalStyle}
         contentLabel="エラー表示"
       >
         <Heading level={2}>エラー</Heading>
@@ -151,7 +137,7 @@ export default function FoodTypesList({ userId }) {
         onRequestClose={() => {
           setShowConsumeModalFlag(false);
         }}
-        style={customStyles}
+        style={modalStyle}
         contentLabel="ポイント消費確認"
       >
         <Heading level={2}>{modalFoodType.category}</Heading>
@@ -180,7 +166,25 @@ export default function FoodTypesList({ userId }) {
           </Button>
         </Flex>
       </Modal>
-      <ThemeProvider theme={reactCardTheme}>{foodTypesElm}</ThemeProvider>
+      <ThemeProvider theme={reactCardTheme}>
+        {!foodTypes ? (
+          <View as="div" className="message-wrapper">
+            <Text>🕛 Now Loading... 🕧</Text>
+          </View>
+        ) : foodTypes.length > 0 ? (
+          foodTypes.map((foodType) => {
+            return getCardElement(foodType);
+          })
+        ) : (
+          <View as="div" className="message-wrapper">
+            <Text>
+              飲食可能なお店が見つかりませんでした。
+              <br />
+              動いた後の食事は美味しいですよ！🚶‍♂️
+            </Text>
+          </View>
+        )}
+      </ThemeProvider>
     </div>
   );
 }
