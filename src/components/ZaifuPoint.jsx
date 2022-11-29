@@ -22,7 +22,7 @@ const ZaifuPoint = ({userId, updateUiToggle}) => {
   };
 
   return (
-    <h2>Zaifu {points} pt</h2>
+    <h2 className='point'>Zaifu {points} pt</h2>
   );
 };
 

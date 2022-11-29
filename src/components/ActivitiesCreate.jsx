@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../assets/ActivitiesCreate.css';
+
 import {
   View,
   Flex,
@@ -23,6 +24,7 @@ import {
   updateUsersUtil,
 } from '../utils/requestUsers';
 import '@aws-amplify/ui-react/styles.css';
+import ZaifuPoint from './ZaifuPoint';
 
 // 1. get userId
 // 2. get user ZaifuPoint by given userId
@@ -120,42 +122,44 @@ const ActivitiesCreate = (props) => {
   return (
     <>
       <div id="level1_frame">
-        <h2>Zaifu &nbsp; { points } pt</h2>
-        <View
-          as="form"
-          // onSubmit={async (e) => {
-          //   console.log("------------- onSubmit (e)", e);
-          //   await createActivity(e, userName, 'walking');
-          //   const amt = await getAmount(e);
-          //   const points_after = points + calcZaifuPoint(amt);
-          //   updateUserPoint(userName, points_after);
-          // }}
-        >
-          <Flex direction="column" alignItems="left">
-            <TextField
-              name="amount"
-              placeholder="歩"
-              label="ウォーキング"
-              variation="default"
-              required
-            />
-              <Button id="button"
-                type="submit" 
-                variation="primary"
-                isFullWidth={true}
-                onClick={ async (e) => { 
-                  // console.log("------------- onClick (e)", e);
-                  await createActivity(e, userName, 'walking');
-                  const amt = await getAmount(e);
-                  const points_after = points + calcZaifuPoint(amt);
-                  await updateUserPoint(userName, points_after);
-                  navigate("/");
-                }}    
-              >
-              保存
-              </Button>
-          </Flex>
-        </View>
+        <div className="point-wrapper">
+          <ZaifuPoint userId={ userName }/>
+          <View
+            as="form"
+            // onSubmit={async (e) => {
+            //   console.log("------------- onSubmit (e)", e);
+            //   await createActivity(e, userName, 'walking');
+            //   const amt = await getAmount(e);
+            //   const points_after = points + calcZaifuPoint(amt);
+            //   updateUserPoint(userName, points_after);
+            // }}
+          >
+            <Flex direction="column" alignItems="left">
+              <TextField
+                name="amount"
+                placeholder="歩"
+                label="ウォーキング"
+                variation="default"
+                required
+              />
+                <Button id="button"
+                  type="submit" 
+                  variation="primary"
+                  isFullWidth={true}
+                  onClick={ async (e) => { 
+                    // console.log("------------- onClick (e)", e);
+                    await createActivity(e, userName, 'walking');
+                    const amt = await getAmount(e);
+                    const points_after = points + calcZaifuPoint(amt);
+                    await updateUserPoint(userName, points_after);
+                    navigate("/");
+                  }}    
+                >
+                保存
+                </Button>
+            </Flex>
+          </View>
+        </div>
       </div>
     </>
   );

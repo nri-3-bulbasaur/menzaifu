@@ -108,8 +108,11 @@ export default function FoodTypesList({ userId }) {
 
   return (
     <div className="foodtypes-wrapper">
+      <div className='button-activity'>
+        <Button className='button-green'><Link to="/activities">アクティビティ</Link></Button>
+      </div>
       <ZaifuPoint userId={ userId } updateUiToggle={updateUiToggle}/>
-      <Button className='button-green'><Link to="/activities">アクティビティ</Link></Button>
+
       <Heading level={1}>罪なき飲食店</Heading>
       <Modal
         isOpen={showErrorModalFlag}
