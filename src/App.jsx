@@ -13,7 +13,9 @@ import FoodTypesList from './components/FoodTypesList';
 import ActivitiesCreate from './components/ActivitiesCreate';
 import NotFound from './components/NotFound';
 import Header from './components/Header';
-import Settings from './components/Settings';
+// TODO: 現状は設定画面に機能がなく、ルーティングしないようにしているため
+// 設定画面内に新たな機能が実装された後にコメントアウトを解除する
+// import Settings from './components/Settings';
 
 //Check if you are in localhost or production
 const isLocalhost = Boolean(
@@ -29,13 +31,18 @@ const isLocalhost = Boolean(
 const signInURI = awsExports.oauth.redirectSignIn.split(',');
 const signOutURI = awsExports.oauth.redirectSignOut.split(',');
 
+console.log(window.location);
+
 if (isLocalhost) {
-  awsExports.oauth.redirectSignIn = signInURI[1];
-  awsExports.oauth.redirectSignOut = signOutURI[1];
+  if (window.location.port === '3000') {
+    awsExports.oauth.redirectSignIn = signInURI[1];
+    awsExports.oauth.redirectSignOut = signOutURI[1];
+  } else {
+    awsExports.oauth.redirectSignIn = signInURI[0];
+    awsExports.oauth.redirectSignOut = signOutURI[0];
+  }
 } else if (
-  window.location.hostname ===
-  // Add Your Application Domain here. For Example:
-  'https://staging.d4mynp1yvqb1q.amplifyapp.com/'
+  window.location.origin === 'https://staging.d4mynp1yvqb1q.amplifyapp.com/'
 ) {
   awsExports.oauth.redirectSignIn = signInURI[2];
   awsExports.oauth.redirectSignOut = signOutURI[2];
@@ -56,7 +63,7 @@ function App() {
           <Authenticator socialProviders={['google']}>
             {({ signOut, user }) => (
               <main>
-                <Header />
+                <Header authInfo={user} signOut={signOut} />
                 <Routes>
                   <Route
                     path={`/`}
@@ -70,10 +77,12 @@ function App() {
                     path={`/activities`}
                     element={<ActivitiesCreate user={user} />}
                   />
-                  <Route
+                  {/* TODO: 現状は設定画面に機能がなく、ルーティングしないようにしているため
+                  設定画面内に新たな機能が実装された後にコメントアウトを解除する */}
+                  {/* <Route
                     path={`/settings`}
                     element={<Settings authInfo={user} signOut={signOut} />}
-                  />
+                  /> */}
                   <Route path={`*`} element={<NotFound />} />
                 </Routes>
               </main>
