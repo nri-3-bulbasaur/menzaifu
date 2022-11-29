@@ -21,13 +21,21 @@ const listUsersUtil = async () => {
   return usersFromAPI;
 };
 
-const createUsersUtil = async ({ userId, height, weight, age, zaifuPoint }) => {
+const createUsersUtil = async ({
+  userId,
+  height,
+  weight,
+  age,
+  zaifuPoint,
+  menzaifu,
+}) => {
   const data = {
     userId: userId,
     height: height,
     weight: weight,
     age: age,
     zaifuPoint: zaifuPoint,
+    menzaifu: menzaifu,
   };
   await API.graphql({
     query: createUsersMutation,
