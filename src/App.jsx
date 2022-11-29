@@ -24,26 +24,28 @@ const isLocalhost = Boolean(
     window.location.hostname.match(
       /^127(?:.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
     )
-)
+);
 
-const signInURI = awsExports.oauth.redirectSignIn.split(',')
-const signOutURI = awsExports.oauth.redirectSignOut.split(',')
+const signInURI = awsExports.oauth.redirectSignIn.split(',');
+const signOutURI = awsExports.oauth.redirectSignOut.split(',');
 
-console.log(window.location)
+console.log(window.location);
 
 if (isLocalhost) {
-  if (window.location.port === "3000") {
-  awsExports.oauth.redirectSignIn = signInURI[1]
-  awsExports.oauth.redirectSignOut = signOutURI[1]
-  }else {
-  awsExports.oauth.redirectSignIn = signInURI[0]
-  awsExports.oauth.redirectSignOut = signOutURI[0]
+  if (window.location.port === '3000') {
+    awsExports.oauth.redirectSignIn = signInURI[1];
+    awsExports.oauth.redirectSignOut = signOutURI[1];
+  } else {
+    awsExports.oauth.redirectSignIn = signInURI[0];
+    awsExports.oauth.redirectSignOut = signOutURI[0];
   }
-} else if (window.location.origin === "https://staging.d4mynp1yvqb1q.amplifyapp.com/") {
-  awsExports.oauth.redirectSignIn = signInURI[2]
-  awsExports.oauth.redirectSignOut = signOutURI[2]
+} else if (
+  window.location.origin === 'https://staging.d4mynp1yvqb1q.amplifyapp.com/'
+) {
+  awsExports.oauth.redirectSignIn = signInURI[2];
+  awsExports.oauth.redirectSignOut = signOutURI[2];
 } else {
-  console.alert('This is not possible')
+  console.alert('This is not possible');
 }
 
 //Then Configure Resources
@@ -59,9 +61,18 @@ function App() {
               <main>
                 <Header />
                 <Routes>
-                  <Route path={`/`} element={<FoodTypesList userId={user.username} />} />
-                  <Route path={`/foodtypes`} element={<FoodTypesList userId={user.username} />} />
-                  <Route path={`/activities`} element={<ActivitiesCreate user = { user } />} />
+                  <Route
+                    path={`/`}
+                    element={<FoodTypesList userId={user.username} />}
+                  />
+                  <Route
+                    path={`/foodtypes`}
+                    element={<FoodTypesList userId={user.username} />}
+                  />
+                  <Route
+                    path={`/activities`}
+                    element={<ActivitiesCreate user={user} />}
+                  />
                   <Route
                     path={`/settings`}
                     element={<Settings authInfo={user} signOut={signOut} />}
