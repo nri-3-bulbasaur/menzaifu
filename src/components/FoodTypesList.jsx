@@ -202,13 +202,20 @@ export default function FoodTypesList({ userId }) {
       >
         <Heading level={2}>Not Guilty!!!</Heading>
         <Flex direction="column" className="modal-content-wrapper">
-          <Text>{modalFoodType.category} 獲得おめっとさん</Text>
-          <Image src={modalFoodType.url} alt={modalFoodType.category} maxWidth="25vw" />
+          <Text>免罪符獲得おめっとさん！</Text>
+          <Image
+            src={modalFoodType.url}
+            alt={modalFoodType.category}
+            maxWidth="25vw"
+          />
+          <Text>{modalFoodType.category} を楽しみましょう！</Text>
           <a
-          href={'https://www.google.com/search?q=' + modalFoodType.category}
-          target="_blank"
-          rel="noreferrer"
-        >Googleでお店を検索</a>
+            href={'https://www.google.com/search?q=' + modalFoodType.category}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Googleでお店を検索
+          </a>
         </Flex>
       </Modal>
       <ThemeProvider theme={reactCardTheme}>
