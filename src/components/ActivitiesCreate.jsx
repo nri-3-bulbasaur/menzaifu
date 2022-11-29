@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../assets/ActivitiesCreate.css';
+import '../assets/styles.css';
 
 import {
   View,
@@ -147,7 +148,6 @@ const ActivitiesCreate = (props) => {
                   variation="primary"
                   isFullWidth={true}
                   onClick={ async (e) => { 
-                    // console.log("------------- onClick (e)", e);
                     await createActivity(e, userName, 'walking');
                     const amt = await getAmount(e);
                     const points_after = points + calcZaifuPoint(amt);
@@ -156,6 +156,16 @@ const ActivitiesCreate = (props) => {
                   }}    
                 >
                 保存
+                </Button>
+                <Button className='button-gray'
+                  type="submit" 
+                  variation="primary"
+                  isFullWidth={true}
+                  onClick={ async () => { 
+                    navigate("/");
+                  }}    
+                >
+                戻る
                 </Button>
             </Flex>
           </View>
