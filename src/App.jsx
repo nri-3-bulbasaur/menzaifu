@@ -10,6 +10,7 @@ import awsExports from './aws-exports';
 
 // Components
 import FoodTypesList from './components/FoodTypesList';
+import ActivitiesCreate from './components/ActivitiesCreate';
 import NotFound from './components/NotFound';
 import Header from './components/Header';
 import Settings from './components/Settings';
@@ -28,6 +29,7 @@ function App() {
                 <Routes>
                   <Route path={`/`} element={<FoodTypesList userId={user.username} />} />
                   <Route path={`/foodtypes`} element={<FoodTypesList userId={user.username} />} />
+                  <Route path={`/activities`} element={<ActivitiesCreate user = { user } />} />
                   <Route
                     path={`/settings`}
                     element={<Settings authInfo={user} signOut={signOut} />}
