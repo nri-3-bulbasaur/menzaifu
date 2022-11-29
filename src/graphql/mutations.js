@@ -106,6 +106,7 @@ export const createUsers = /* GraphQL */ `
       weight
       age
       zaifuPoint
+      menzaifu
       createdAt
       updatedAt
     }
@@ -123,6 +124,7 @@ export const updateUsers = /* GraphQL */ `
       weight
       age
       zaifuPoint
+      menzaifu
       createdAt
       updatedAt
     }
@@ -140,6 +142,7 @@ export const deleteUsers = /* GraphQL */ `
       weight
       age
       zaifuPoint
+      menzaifu
       createdAt
       updatedAt
     }
