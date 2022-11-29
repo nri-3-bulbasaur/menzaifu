@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { listUsersUtil } from '../utils/requestUsers';
 
-const ZaifuPoint = ({userId}) => {
+const ZaifuPoint = ({userId, updateUiToggle}) => {
   const [points, setPoints] = useState();
 
   useEffect(() => {
@@ -11,7 +11,7 @@ const ZaifuPoint = ({userId}) => {
       const initPoint = await getUserPoint(userId);
       setPoints(initPoint);
     })();
-  }, [points]);
+  }, [points, updateUiToggle]);
 
   const getUserPoint = async (userId) =>  {
     const userList = await listUsersUtil();
@@ -28,6 +28,7 @@ const ZaifuPoint = ({userId}) => {
 
 ZaifuPoint.propTypes = {
   userId: PropTypes.string.isRequired,
+  updateUiToggle: PropTypes.number.isRequired,
 };
 
 export default ZaifuPoint;
