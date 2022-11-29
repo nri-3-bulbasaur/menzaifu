@@ -20,10 +20,7 @@ import {
   // updateActivitiesUtil,
   // deleteActivitiesUtil,
 } from '../utils/requestActivities';
-import {
-  listUsersUtil,
-  updateUsersUtil,
-} from '../utils/requestUsers';
+import { listUsersUtil, updateUsersUtil } from '../utils/requestUsers';
 import '@aws-amplify/ui-react/styles.css';
 import ZaifuPoint from './ZaifuPoint';
 
@@ -40,22 +37,22 @@ const ActivitiesCreate = (props) => {
   const [activities, setActivities] = useState([]);
   const [points, setPoints] = useState();
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   // 2.1 show ZaifuPoint on screen
   useEffect(() => {
     (async () => {
       const initPoint = await getUserPoint(userInfo.user.username);
-      console.log("initPoint", initPoint);
       setPoints(initPoint);
       const activitiesList = await listActivitiesUtil();
       // activitiesList sorted by createdAt
-      setActivities(activitiesList.sort((a, b) => {
-        if(a.createdAt < b.createdAt) return -1;
-        else if(a.createdAt > b.createdAt) return 1;
-        return 0;
-      }));
-      // console.log("activitiesList", activitiesList);
+      setActivities(
+        activitiesList.sort((a, b) => {
+          if (a.createdAt < b.createdAt) return -1;
+          else if (a.createdAt > b.createdAt) return 1;
+          return 0;
+        })
+      );
     })();
   }, []);
 
@@ -64,10 +61,11 @@ const ActivitiesCreate = (props) => {
   const userName = userInfo.user.username;
 
   // 2. get user ZaifuPoint by given userId
-  const getUserPoint = async (userId) =>  {
+  const getUserPoint = async (userId) => {
     const userList = await listUsersUtil();
-    console.log("userList", userList);
-    const userPoint = userList.find(user => user.userId === userId).zaifuPoint;
+    const userPoint = userList.find(
+      (user) => user.userId === userId
+    ).zaifuPoint;
     if (userPoint) return userPoint;
     else return 0;
   };
@@ -91,9 +89,9 @@ const ActivitiesCreate = (props) => {
   // 5. update ZaifuPoint by given userID & diff point
   const updateUserPoint = async (userId, zaifuPoint) => {
     // get user
-    const user = await listUsersUtil().then(
-      (res) => res.find(user => user.userId === userId)
-      );
+    const user = await listUsersUtil().then((res) =>
+      res.find((user) => user.userId === userId)
+    );
     // update user point
     user.zaifuPoint = zaifuPoint;
     // update user
@@ -106,17 +104,15 @@ const ActivitiesCreate = (props) => {
   };
 
   const createActivity = async (event, userId, activityId) => {
-    console.log("createActivity()");
     event.preventDefault();
     // const form = new FormData(event.target);
-    console.log("event.target.form[0].value", event.target.form[0].value);
     const data = {
       userId: userId,
       activityId: activityId,
       amount: event.target.form[0].value,
       // amount: form.get('amount'),
     };
-    const newActivities = await createActivitiesUtil(data);    
+    const newActivities = await createActivitiesUtil(data);
     setActivities(newActivities);
   };
 
@@ -124,7 +120,7 @@ const ActivitiesCreate = (props) => {
     <>
       <div id="level1_frame">
         <div className="point-wrapper">
-          <ZaifuPoint userId={ userName }/>
+          <ZaifuPoint userId={userName} />
           <View
             as="form"
             // onSubmit={async (e) => {
@@ -143,30 +139,32 @@ const ActivitiesCreate = (props) => {
                 variation="default"
                 required
               />
-                <Button id="button"
-                  type="submit" 
-                  variation="primary"
-                  isFullWidth={true}
-                  onClick={ async (e) => { 
-                    await createActivity(e, userName, 'walking');
-                    const amt = await getAmount(e);
-                    const points_after = points + calcZaifuPoint(amt);
-                    await updateUserPoint(userName, points_after);
-                    navigate("/");
-                  }}    
-                >
+              <Button
+                id="button"
+                type="submit"
+                variation="primary"
+                isFullWidth={true}
+                onClick={async (e) => {
+                  await createActivity(e, userName, 'walking');
+                  const amt = await getAmount(e);
+                  const points_after = points + calcZaifuPoint(amt);
+                  await updateUserPoint(userName, points_after);
+                  navigate('/');
+                }}
+              >
                 保存
-                </Button>
-                <Button className='button-gray'
-                  type="submit" 
-                  variation="primary"
-                  isFullWidth={true}
-                  onClick={ async () => { 
-                    navigate("/");
-                  }}    
-                >
+              </Button>
+              <Button
+                className="button-gray"
+                type="submit"
+                variation="primary"
+                isFullWidth={true}
+                onClick={async () => {
+                  navigate('/');
+                }}
+              >
                 戻る
-                </Button>
+              </Button>
             </Flex>
           </View>
         </div>
