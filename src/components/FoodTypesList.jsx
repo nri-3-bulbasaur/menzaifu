@@ -20,6 +20,7 @@ import { getUser, updateUsersUtil } from '../utils/requestUsers';
 import getWindowSize from '../utils/getWindowSize';
 import Modal from 'react-modal';
 import ZaifuPoint from './ZaifuPoint';
+import Menzaifu from './Menzaifu';
 
 export default function FoodTypesList({ userId }) {
   const [updateUiToggle, setUpdateUiToggle] = useState(0);
@@ -64,6 +65,7 @@ export default function FoodTypesList({ userId }) {
     } else {
       const updateUser = { ...latestUser };
       updateUser.zaifuPoint -= modalFoodType.minZaifuPoint;
+      updateUser.menzaifu += 1;
       await updateUsersUtil(updateUser);
       openMenzaifuModal();
     }
@@ -127,6 +129,7 @@ export default function FoodTypesList({ userId }) {
         </Button>
       </div>
       <ZaifuPoint userId={userId} updateUiToggle={updateUiToggle} />
+      <Menzaifu userId={userId} updateUiToggle={updateUiToggle} />
 
       <Heading level={1}>罪なき飲食店</Heading>
       <Modal
