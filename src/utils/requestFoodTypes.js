@@ -89,7 +89,6 @@ const listFoodTypesUtil = async () => {
   const apiData = await API.graphql({ query: listFoodTypes });
   const foodTypesFromAPI = apiData.data.listFoodTypes.items;
   const foodTypes = await getImageFromS3(foodTypesFromAPI);
-  //console.log(foodTypes);
   return foodTypes;
 };
 

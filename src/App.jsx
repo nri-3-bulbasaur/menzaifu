@@ -31,8 +31,6 @@ const isLocalhost = Boolean(
 const signInURI = awsExports.oauth.redirectSignIn.split(',');
 const signOutURI = awsExports.oauth.redirectSignOut.split(',');
 
-console.log(window.location);
-
 if (isLocalhost) {
   if (window.location.port === '3000') {
     awsExports.oauth.redirectSignIn = signInURI[1];
