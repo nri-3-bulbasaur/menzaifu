@@ -14,6 +14,7 @@ exports.handler = async (event, context, callback) => {
       weight: '70',
       age: '30',
       zaifuPoint: '100',
+      menzaifu: '0',
       __typename: 'Users',
       updatedAt: now.toISOString(),
       createdAt: now.toISOString(),

@@ -13,7 +13,9 @@ import FoodTypesList from './components/FoodTypesList';
 import ActivitiesCreate from './components/ActivitiesCreate';
 import NotFound from './components/NotFound';
 import Header from './components/Header';
-import Settings from './components/Settings';
+// TODO: 現状は設定画面に機能がなく、ルーティングしないようにしているため
+// 設定画面内に新たな機能が実装された後にコメントアウトを解除する
+// import Settings from './components/Settings';
 
 //Check if you are in localhost or production
 const isLocalhost = Boolean(
@@ -45,7 +47,9 @@ if (isLocalhost) {
   awsExports.oauth.redirectSignIn = signInURI[2];
   awsExports.oauth.redirectSignOut = signOutURI[2];
 } else {
-  console.alert('This is not possible');
+  console.warn(
+    'ソーシャルログイン用のリダイレクト先の判定をした結果、想定外のhostnameになっているようです。'
+  );
 }
 
 //Then Configure Resources
@@ -59,7 +63,7 @@ function App() {
           <Authenticator socialProviders={['google']}>
             {({ signOut, user }) => (
               <main>
-                <Header />
+                <Header authInfo={user} signOut={signOut} />
                 <Routes>
                   <Route
                     path={`/`}
@@ -73,10 +77,12 @@ function App() {
                     path={`/activities`}
                     element={<ActivitiesCreate user={user} />}
                   />
-                  <Route
+                  {/* TODO: 現状は設定画面に機能がなく、ルーティングしないようにしているため
+                  設定画面内に新たな機能が実装された後にコメントアウトを解除する */}
+                  {/* <Route
                     path={`/settings`}
                     element={<Settings authInfo={user} signOut={signOut} />}
-                  />
+                  /> */}
                   <Route path={`*`} element={<NotFound />} />
                 </Routes>
               </main>
