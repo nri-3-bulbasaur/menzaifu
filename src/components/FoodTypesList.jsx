@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
   ThemeProvider,
@@ -18,12 +19,14 @@ import { listFoodTypesUtil } from '../utils/requestFoodTypes';
 import { getUser, updateUsersUtil } from '../utils/requestUsers';
 import getWindowSize from '../utils/getWindowSize';
 import Modal from 'react-modal';
+import ZaifuPoint from './ZaifuPoint';
 
 export default function FoodTypesList({ userId }) {
   const [updateUiToggle, setUpdateUiToggle] = useState(0);
   const [foodTypes, setFoodTypes] = useState();
   const [showConsumeModalFlag, setShowConsumeModalFlag] = useState(false);
   const [showErrorModalFlag, setShowErrorModalFlag] = useState(false);
+  const [showMenzaifuModalFlag, setShowMenzaifuModalFlag] = useState(false);
   const [modalFoodType, setModalFoodType] = useState({});
   const { windowWidth } = getWindowSize();
   const stringLimit = windowWidth / 80 > 6 ? windowWidth / 80 : 6; // 計算が面倒になってきたので、とりあえず…
@@ -50,6 +53,10 @@ export default function FoodTypesList({ userId }) {
     setShowErrorModalFlag(true);
   };
 
+  const openMenzaifuModal = () => {
+    setShowMenzaifuModalFlag(true);
+  };
+
   const consumePoint = async () => {
     const latestUser = await getUser(userId);
     if (latestUser.zaifuPoint < modalFoodType.minZaifuPoint) {
@@ -58,6 +65,7 @@ export default function FoodTypesList({ userId }) {
       const updateUser = { ...latestUser };
       updateUser.zaifuPoint -= modalFoodType.minZaifuPoint;
       await updateUsersUtil(updateUser);
+      openMenzaifuModal();
     }
     setUpdateUiToggle(Math.random());
   };
@@ -98,6 +106,13 @@ export default function FoodTypesList({ userId }) {
                 ? `${foodType.minZaifuPoint.toLocaleString()}pt～`
                 : `${foodType.minZaifuPoint.toExponential(stringLimit)}pt～`}
             </Text>
+            <a
+              href={'https://www.google.com/search?q=' + foodType.category}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Googleでお店を検索
+            </a>
           </Flex>
         </Flex>
       </Card>
@@ -106,6 +121,13 @@ export default function FoodTypesList({ userId }) {
 
   return (
     <div className="foodtypes-wrapper">
+      <div className="button-activity">
+        <Button className="button-green">
+          <Link to="/activities">アクティビティ</Link>
+        </Button>
+      </div>
+      <ZaifuPoint userId={userId} updateUiToggle={updateUiToggle} />
+
       <Heading level={1}>罪なき飲食店</Heading>
       <Modal
         isOpen={showErrorModalFlag}
@@ -164,6 +186,21 @@ export default function FoodTypesList({ userId }) {
           >
             🍴たべる
           </Button>
+        </Flex>
+      </Modal>
+      {/* 下記追加分 20111129_harada*/}
+      <Modal
+        isOpen={showMenzaifuModalFlag}
+        ariaHideApp={false}
+        onRequestClose={() => {
+          setShowMenzaifuModalFlag(false);
+        }}
+        style={modalStyle}
+        contentLabel="免罪符付与"
+      >
+        <Heading level={2}>Not Guilty!!!</Heading>
+        <Flex direction="column" className="modal-content-wrapper">
+          <Text>{modalFoodType.category} 獲得おめっとさん</Text>
         </Flex>
       </Modal>
       <ThemeProvider theme={reactCardTheme}>
