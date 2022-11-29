@@ -98,6 +98,7 @@ export default function FoodTypesList({ userId }) {
                 ? `${foodType.minZaifuPoint.toLocaleString()}pt～`
                 : `${foodType.minZaifuPoint.toExponential(stringLimit)}pt～`}
             </Text>
+            <a href={"https://www.google.com/search?q=" + foodType.category} target="_blank" rel="noreferrer">Googleでお店を検索</a>
           </Flex>
         </Flex>
       </Card>
