@@ -23,6 +23,7 @@ export default function FoodTypesList({ userId }) {
   const [foodTypes, setFoodTypes] = useState([]);
   const [showConsumeModalFlag, setShowConsumeModalFlag] = useState(false);
   const [showErrorModalFlag, setShowErrorModalFlag] = useState(false);
+  const [showMenzaifuModalFlag, setShowMenzaifuModalFlag] = useState(false);
   const [modalFoodType, setModalFoodType] = useState({});
   const { windowWidth } = getWindowSize();
   const stringLimit = windowWidth / 80 > 6 ? windowWidth / 80 : 6; // 計算が面倒になってきたので、とりあえず…
@@ -50,6 +51,11 @@ export default function FoodTypesList({ userId }) {
     setShowErrorModalFlag(true);
   };
 
+  const openMenzaifuModal = () => {
+    // setShowConsumeModalFlag(false);
+    setShowMenzaifuModalFlag(true);
+  };
+
   const consumePoint = async () => {
     const { loginUser: loginUser } = await updateDbInfo();
     if (loginUser.zaifuPoint < modalFoodType.minZaifuPoint) {
@@ -58,6 +64,7 @@ export default function FoodTypesList({ userId }) {
       const updateUser = { ...loginUser };
       updateUser.zaifuPoint -= modalFoodType.minZaifuPoint;
       await updateUsersUtil(updateUser);
+      openMenzaifuModal();
     }
     await updateDbInfo();
   };
@@ -178,6 +185,43 @@ export default function FoodTypesList({ userId }) {
           >
             🍴たべる
           </Button>
+        </Flex>
+      </Modal>
+      {/* 下記追加分 20111129_harada*/}
+      <Modal
+        isOpen={showMenzaifuModalFlag}
+        ariaHideApp={false}
+        onRequestClose={() => {
+          setShowMenzaifuModalFlag(false);
+        }}
+        style={customStyles}
+        contentLabel="免罪符付与"
+      >
+        <Heading level={2}>Not Guilty!!!</Heading>
+        {/* <Heading level={2}>{modalFoodType.category}</Heading> */}
+        <Flex direction="column" className="modal-content-wrapper">
+          <Text>{modalFoodType.category} 獲得おめっとさん</Text>
+          {/* <Button
+            loadingText=""
+            onClick={() => {
+              setShowConsumeModalFlag(false);
+            }}
+            ariaLabel=""
+            className="button-green"
+          >
+            🤐やめとく
+          </Button>
+          <Button
+            loadingText=""
+            onClick={() => {
+              consumePoint();
+              setShowConsumeModalFlag(false);
+            }}
+            ariaLabel=""
+            className="button-yellow"
+          >
+            🍴たべる
+          </Button> */}
         </Flex>
       </Modal>
       <ThemeProvider theme={reactCardTheme}>{foodTypesElm}</ThemeProvider>
