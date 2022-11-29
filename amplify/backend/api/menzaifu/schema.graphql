@@ -20,6 +20,7 @@ type Users @model @auth(rules: [{allow: public}]) {
   weight: Float
   age: Int
   zaifuPoint: Int
+  menzaifu: Int
 }
 
 type Test @model @auth(rules: [{allow: public}]) {

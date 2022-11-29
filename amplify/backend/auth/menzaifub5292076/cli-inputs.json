@@ -32,7 +32,7 @@
     "sharedId": "b5292076",
     "resourceName": "menzaifub5292076",
     "authSelections": "identityPoolAndUserPool",
-    "useDefault": "manual",
+    "useDefault": "defaultSocial",
     "userPoolGroupList": [],
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,
@@ -57,10 +57,10 @@
       "Google"
     ],
     "hostedUIProviderMeta": "[{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"sub\"}}]",
-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://menzaifue1928a43-e1928a43-staging.auth.ap-northeast-1.amazoncognito.com/oauth2/idpresponse\"],\"LogoutURLs\":[\"https://menzaifue1928a43-e1928a43-staging.auth.ap-northeast-1.amazoncognito.com/oauth2/idpresponse\"]}",
-    "authProviders": [],
     "userPoolGroups": false,
     "adminQueries": false,
-    "thirdPartyAuth": false
+    "authProviders": [],
+    "hostedUIProviderCreds": "[]",
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:3000/\",\"http://localhost:3000/\",\"https://staging.d4mynp1yvqb1q.amplifyapp.com/\",\"https://staging.d4mynp1yvqb1q.amplifyapp.com/\",\"https://staging.d4mynp1yvqb1q.amplifyapp.com/\"],\"LogoutURLs\":[\"https://staging.d4mynp1yvqb1q.amplifyapp.com/\",\"http://localhost:3000/\",\"https://staging.d4mynp1yvqb1q.amplifyapp.com/\",\"https://staging.d4mynp1yvqb1q.amplifyapp.com/\",\"https://staging.d4mynp1yvqb1q.amplifyapp.com/\"]}"
   }
 }
