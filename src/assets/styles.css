@@ -172,3 +172,8 @@ body {
   display: flex;
   justify-content: flex-end;
 }
+
+.modal_image {
+  margin: auto;
+  max-width: 25vw;
+}
