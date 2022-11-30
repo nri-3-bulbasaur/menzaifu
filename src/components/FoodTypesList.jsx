@@ -204,9 +204,9 @@ export default function FoodTypesList({ userId }) {
         <Flex direction="column" className="modal-content-wrapper">
           <Text>免罪符獲得おめっとさん！</Text>
           <Image
+            className='modal_image'
             src={modalFoodType.url}
             alt={modalFoodType.category}
-            maxWidth="25vw"
           />
           <Text>{modalFoodType.category} を楽しみましょう！</Text>
           <a
