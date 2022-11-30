@@ -37,13 +37,20 @@ if (isLocalhost) {
   if (window.location.port === '3000') {
     awsExports.oauth.redirectSignIn = signInURI[1];
     awsExports.oauth.redirectSignOut = signOutURI[1];
-  } else {
+  } else if (window.location.port === '8080') {
     awsExports.oauth.redirectSignIn = signInURI[0];
     awsExports.oauth.redirectSignOut = signOutURI[0];
+  } else {
+    console.warn(
+      'ソーシャルログイン用のリダイレクト先の判定をした結果、想定外のportになっているようです。'
+    );
   }
 } else if (
   window.location.hostname === 'staging.d4mynp1yvqb1q.amplifyapp.com'
 ) {
+  awsExports.oauth.redirectSignIn = signInURI[3];
+  awsExports.oauth.redirectSignOut = signOutURI[3];
+} else if (window.location.hostname === 'app.menzaifu-app.com') {
   awsExports.oauth.redirectSignIn = signInURI[2];
   awsExports.oauth.redirectSignOut = signOutURI[2];
 } else {
