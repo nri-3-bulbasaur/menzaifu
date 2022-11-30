@@ -24,7 +24,7 @@
       "function": {
         "adduser": {
           "deploymentBucketName": "amplify-amplify7f7b4a77bd664-staging-65957-deployment",
-          "s3Key": "amplify-builds/adduser-57463247505477577377-build.zip"
+          "s3Key": "amplify-builds/adduser-6c514f44464a75596c64-build.zip"
         }
       }
     }

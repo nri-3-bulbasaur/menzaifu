@@ -61,6 +61,6 @@
     "adminQueries": false,
     "authProviders": [],
     "hostedUIProviderCreds": "[{\"ProviderName\":\"Google\"}]",
-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:8080/\",\"http://localhost:3000/\",\"https://staging.d4mynp1yvqb1q.amplifyapp.com/\",\"https://staging.d4mynp1yvqb1q.amplifyapp.com/\",\"https://staging.d4mynp1yvqb1q.amplifyapp.com/\"],\"LogoutURLs\":[\"http://localhost:8080/\",\"http://localhost:3000/\",\"https://staging.d4mynp1yvqb1q.amplifyapp.com/\",\"https://staging.d4mynp1yvqb1q.amplifyapp.com/\",\"https://staging.d4mynp1yvqb1q.amplifyapp.com/\"]}"
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:8080/\",\"http://localhost:3000/\",\"https://app.menzaifu-app.com/\",\"https://staging.d4mynp1yvqb1q.amplifyapp.com/\",\"https://staging.d4mynp1yvqb1q.amplifyapp.com/\"],\"LogoutURLs\":[\"http://localhost:8080/\",\"http://localhost:3000/\",\"https://app.menzaifu-app.com/\",\"https://staging.d4mynp1yvqb1q.amplifyapp.com/\",\"https://staging.d4mynp1yvqb1q.amplifyapp.com/\"]}"
   }
 }
