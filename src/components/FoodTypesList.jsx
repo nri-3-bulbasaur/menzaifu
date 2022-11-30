@@ -131,7 +131,7 @@ export default function FoodTypesList({ userId }) {
       <ZaifuPoint userId={userId} updateUiToggle={updateUiToggle} />
       <Menzaifu userId={userId} updateUiToggle={updateUiToggle} />
 
-      <Heading level={1}>罪なき飲食店</Heading>
+      <Heading level={1}>罪なき飲食物</Heading>
       <Modal
         isOpen={showErrorModalFlag}
         ariaHideApp={false}
