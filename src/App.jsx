@@ -42,7 +42,7 @@ if (isLocalhost) {
     awsExports.oauth.redirectSignOut = signOutURI[0];
   }
 } else if (
-  window.location.origin === 'https://staging.d4mynp1yvqb1q.amplifyapp.com/'
+  window.location.hostname === 'staging.d4mynp1yvqb1q.amplifyapp.com'
 ) {
   awsExports.oauth.redirectSignIn = signInURI[2];
   awsExports.oauth.redirectSignOut = signOutURI[2];
